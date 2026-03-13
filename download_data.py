@@ -5,7 +5,8 @@ def download_finqa():
     print("Downloading FinQA dataset (subset)...")
     try:
         # Loading the requested split
-        dataset = load_dataset("ibm/finqa", split="train[:100]")
+        # FinQA requires trust_remote_code=True for its loading script
+        dataset = load_dataset("ibm/finqa", split="train[:100]", trust_remote_code=True)
         
         print(f"Successfully loaded {len(dataset)} examples from FinQA train[:100].")
         
