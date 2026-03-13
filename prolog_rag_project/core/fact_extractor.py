@@ -16,16 +16,20 @@ class FactExtractor:
         }
 
     def _normalize_amount(self, amount_str, multiplier_str):
-        """Converts currency strings like '394.3 billion' to integers."""
+        """
+        Converts currency strings to integers scaled to MILLIONS.
+        This prevents overflow issues in the pyswip bridge (expected 'long').
+        Example: '394.3 billion' -> 394300
+        """
         amount = float(amount_str.replace(',', ''))
         if multiplier_str:
             mult = multiplier_str.lower()
             if 'trillion' in mult:
-                amount *= 1_000_000_000_000
+                amount *= 1_000_000 # 1T = 1,000,000M
             elif 'billion' in mult:
-                amount *= 1_000_000_000
+                amount *= 1_000 # 1B = 1,000M
             elif 'million' in mult:
-                amount *= 1_000_000
+                amount *= 1 # 1M = 1M
         return int(amount)
 
     def extract_regex_facts(self, text, doc_id=None):
