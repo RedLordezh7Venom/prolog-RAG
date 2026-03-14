@@ -10,8 +10,8 @@ class FactExtractor:
     """
     def __init__(self):
         self.patterns = {
-            'revenue': re.compile(r'revenue of \$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
-            'net_income': re.compile(r'net income of \$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
+            'revenue': re.compile(r'revenue(?:[\w\s]{0,20}?)\$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
+            'net_income': re.compile(r'net income(?:[\w\s]{0,20}?)\$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
             'year': re.compile(r'\b(19|20)\d{2}\b')
         }
 
@@ -72,10 +72,21 @@ class FactExtractor:
 
 if __name__ == "__main__":
     extractor = FactExtractor()
-    test_text = "Apple reported revenue of $394.3 billion"
-    print(f"Testing text: '{test_text}'")
     
-    facts = extractor.extract_from_text(test_text, "apple_2023")
-    print("\nExtracted facts:")
-    for fact in facts:
+    # Test Revenue
+    test_text_1 = "Apple reported revenue of $394.3 billion"
+    print(f"Testing text: '{test_text_1}'")
+    facts_1 = extractor.extract_from_text(test_text_1, "apple_2023")
+    print("\nExtracted facts (Revenue):")
+    for fact in facts_1:
+        print(f" - {fact}")
+        
+    print("-" * 40)
+    
+    # Test Net Income
+    test_text_2 = "Net income increased to $96.9 billion"
+    print(f"Testing text: '{test_text_2}'")
+    facts_2 = extractor.extract_from_text(test_text_2, "apple_2023")
+    print("\nExtracted facts (Net Income):")
+    for fact in facts_2:
         print(f" - {fact}")
