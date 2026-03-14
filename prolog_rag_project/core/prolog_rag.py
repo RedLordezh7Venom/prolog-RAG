@@ -37,6 +37,17 @@ class PrologRAG:
         
         print("\nProlog-RAG system initialized successfully! ✅")
 
+    def translate_to_prolog(self, question):
+        """
+        Simple keyword-based translation from NL to Prolog query.
+        """
+        question_lower = question.lower()
+        if 'margin' in question_lower:
+            return "profit_margin(DocId, M)"
+        if 'growth' in question_lower:
+            return "growth_rate(DocOld, DocNew, Rate)"
+        return None
+
     def query(self, question, top_k=3):
         """
         Executes a query through the Prolog-RAG pipeline.
@@ -46,8 +57,54 @@ class PrologRAG:
         # 1. Route the query
         query_type = self.router.route(question)
         print(f"Routing Decision: {query_type.value}")
+
+        # 2. Vector Retrieval
+        print(f"Retrieving top {top_k} relevant documents...")
+        question_embedding = self.encoder.encode(question).tolist()
+        results = self.collection.query(
+            query_embeddings=[question_embedding],
+            n_results=top_k
+        )
         
-        return query_type
+        documents = results['documents'][0]
+        metadatas = results['metadatas'][0]
+        ids = results['ids'][0]
+        print(f"Retrieved {len(documents)} documents.")
+
+        # 3. Fact Extraction & KB Loading
+        prolog_results = []
+        proof_trace = []
+
+        if query_type == QueryType.PROLOG:
+            print("Prolog path detected. Extracting facts...")
+            self.prolog_kb.clear() # Clear KB for new query reasoning
+            
+            total_facts = 0
+            for doc_text, doc_meta, doc_id in zip(documents, metadatas, ids):
+                actual_id = doc_meta.get('finqa_id', doc_id)
+                facts = self.fact_extractor.extract_from_text(doc_text, actual_id)
+                
+                for fact in facts:
+                    if self.prolog_kb.add_fact(fact):
+                        total_facts += 1
+            
+            print(f"Loaded {total_facts} facts into Prolog KB.")
+
+            # 4. Prolog Reasoning
+            prolog_query = self.translate_to_prolog(question)
+            if prolog_query:
+                print(f"Translated Prolog Query: {prolog_query}")
+                prolog_results, proof_trace = self.prolog_kb.query(prolog_query)
+                print(f"Reasoning Results: {prolog_results}")
+            else:
+                print("Could not translate question to Prolog query.")
+        
+        return {
+            'type': query_type,
+            'results': prolog_results,
+            'proof': proof_trace,
+            'docs': documents
+        }
 
 if __name__ == "__main__":
     # Test initialization and routing
