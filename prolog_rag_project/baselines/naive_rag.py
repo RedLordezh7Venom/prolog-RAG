@@ -22,6 +22,24 @@ class NaiveRAG:
             print(f"Error accessing collection: {e}")
             self.collection = None
 
+    def _extract_answer(self, context_list):
+        """
+        Heuristic baseline: finds the first sentence in the context that 
+        contains a numerical value.
+        """
+        import re
+        # Pattern to match numbers (e.g., 25.0, 100, 1,000)
+        number_pattern = re.compile(r'\d+')
+        
+        for doc in context_list:
+            # Simple sentence splitting on periods
+            sentences = doc.split('. ')
+            for sentence in sentences:
+                if number_pattern.search(sentence):
+                    return sentence.strip()
+                    
+        return "Answer not found in context."
+
     def query(self, question, top_k=3):
         """
         Executes a basic retrieve-and-display query.
@@ -40,11 +58,13 @@ class NaiveRAG:
 
         documents = results['documents'][0]
         
-        # 3. Format output
-        # For naive baseline, 'answer' is simply the top-ranked snippet
+        # 3. Extract heuristic answer
+        answer = self._extract_answer(documents)
+        
+        # 4. Format output
         return {
             'question': question,
-            'answer': documents[0] if documents else "No relevant context found.",
+            'answer': answer,
             'context': documents,
             'method': 'naive_rag',
             'has_proof': False
@@ -53,8 +73,8 @@ class NaiveRAG:
 if __name__ == "__main__":
     # Quick baseline test
     baseline = NaiveRAG()
-    test_q = "What is the profit margin for 2023?"
+    test_q = "What is the profit margin?"
     result = baseline.query(test_q)
     print(f"\nQuestion: {result['question']}")
-    print(f"Answer (Top Snippet): {result['answer'][:200]}...")
+    print(f"Answer: {result['answer']}")
     print(f"Has Proof: {result['has_proof']}")
