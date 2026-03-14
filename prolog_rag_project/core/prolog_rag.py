@@ -79,7 +79,7 @@ class PrologRAG:
         """
         Synthesizes a final answer using Groq LLM.
         """
-        model = "meta-llama/llama-4-scout-17b-16e-instruct" 
+        model = "llama-3.3-70b-versatile" 
         
         system_prompt = "You are a specialized financial analyst. Use the provided context to answer questions accurately."
         

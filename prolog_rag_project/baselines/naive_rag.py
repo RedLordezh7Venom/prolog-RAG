@@ -29,7 +29,7 @@ class NaiveRAG:
 
         # Initialize Groq Client
         self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.model = "meta-llama/llama-4-scout-17b-16e-instruct"
+        self.model = "llama-3.3-70b-versatile"
 
     def _extract_answer(self, context_list):
         """
