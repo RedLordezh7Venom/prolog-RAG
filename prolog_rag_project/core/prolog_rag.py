@@ -75,6 +75,36 @@ class PrologRAG:
         parts = [f"{k}: {v}" for k, v in res.items() if k not in ['DocId', 'DocOld', 'DocNew']]
         return ", ".join(parts) if parts else "Condition met in Knowledge Base."
 
+    def _generate_with_llm(self, question, context, reasoning_result=None):
+        """
+        Synthesizes a final answer using Groq LLM.
+        """
+        model = "meta-llama/llama-4-scout-17b-16e-instruct" 
+        
+        system_prompt = "You are a specialized financial analyst. Use the provided context to answer questions accurately."
+        
+        prompt = f"Question: {question}\n\n"
+        prompt += f"Context: {context}\n\n"
+        
+        if reasoning_result:
+            prompt += f"Formal Reasoning Result: {reasoning_result}\n"
+            prompt += "Please incorporate the formal reasoning result into your answer, explaining the calculation and providing the final number clearly."
+        else:
+            prompt += "Please summarize the answer based strictly on the provided context."
+
+        try:
+            completion = self.llm.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                model=model,
+                temperature=0.1
+            )
+            return completion.choices[0].message.content
+        except Exception as e:
+            return f"Error generating answer: {str(e)}"
+
     def query(self, question, top_k=3):
         """
         Executes a query through the Prolog-RAG pipeline.
@@ -104,7 +134,7 @@ class PrologRAG:
 
         if query_type == QueryType.PROLOG:
             print("Prolog path detected. Extracting facts...")
-            self.prolog_kb.clear() # Clear KB for new query reasoning
+            self.prolog_kb.clear() 
             
             total_facts = 0
             for doc_text, doc_meta, doc_id in zip(documents, metadatas, ids):
@@ -126,13 +156,18 @@ class PrologRAG:
             else:
                 print("Could not translate question to Prolog query.")
         
-        # 5. Final Answer Generation
-        answer = self._format_answer(question, prolog_results)
+        # 5. LLM Answer Synthesis
+        print("Synthesizing final answer with Groq LLM...")
+        context_text = "\n\n".join(documents)
         
-        # Fallback to vector search snippet if no prolog answer
-        if not answer:
-            print("Falling back to vector snippet...")
-            answer = f"Based on retrieved documents: {documents[0][:200]}..."
+        # Prepare reasoning result for LLM (if any)
+        reasoning_summary = self._format_answer(question, prolog_results) if prolog_results else None
+        
+        answer = self._generate_with_llm(
+            question=question, 
+            context=context_text, 
+            reasoning_result=reasoning_summary
+        )
 
         return {
             'question': question,

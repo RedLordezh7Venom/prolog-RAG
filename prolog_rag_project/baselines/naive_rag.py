@@ -1,5 +1,11 @@
+import os
 import chromadb
+from dotenv import load_dotenv
+from groq import Groq
 from sentence_transformers import SentenceTransformer
+
+# Load environment variables
+load_dotenv()
 
 class NaiveRAG:
     """
@@ -14,13 +20,16 @@ class NaiveRAG:
         # Connect to the same ChromaDB instance
         self.chroma_client = chromadb.PersistentClient(path='./chroma_db')
         
-        # Access the 'finqa' collection
         try:
             self.collection = self.chroma_client.get_collection(name="finqa")
             print("Successfully connected to 'finqa' collection.")
         except Exception as e:
             print(f"Error accessing collection: {e}")
             self.collection = None
+
+        # Initialize Groq Client
+        self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+        self.model = "meta-llama/llama-4-scout-17b-16e-instruct"
 
     def _extract_answer(self, context_list):
         """
@@ -58,9 +67,24 @@ class NaiveRAG:
 
         documents = results['documents'][0]
         
-        # 3. Extract heuristic answer
-        answer = self._extract_answer(documents)
+        # 3. Use LLM to synthesize answer (Baseline RAG)
+        context_text = "\n\n".join(documents)
+        system_prompt = "You are a helpful assistant. Use the provided context to answer the question."
+        prompt = f"Question: {question}\n\nContext: {context_text}"
         
+        try:
+            completion = self.llm.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                model=self.model,
+                temperature=0.1
+            )
+            answer = completion.choices[0].message.content
+        except Exception as e:
+            answer = f"Error generating answer: {str(e)}"
+            
         # 4. Format output
         return {
             'question': question,
