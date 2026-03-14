@@ -344,10 +344,26 @@ graph TD
     Synthesis --> Answer[Human-Readable Answer]
 ```
 
-### 4. Additional Baselines (OPTIONAL)
+### 4. Contextual RAG (REQUIRED)
+**Description:** Anthropic's method of prepending context to chunks + Hybrid (BM25 + Vector) search.  
+**Implementation:** ContextualRAG class with rank_bm25 and contextualized chunks.  
+**Purpose:** Better retrieval for technical/keyword-heavy terms using BM25.
+
+**Architecture:**
+```mermaid
+graph TD
+    Query[User Query] --> VectorSearch[Vector Semantic Search]
+    Query --> BM25Search[Contextual BM25 Search]
+    VectorSearch --> RRF[Reciprocal Rank Fusion]
+    BM25Search --> RRF
+    RRF --> Synthesis[LLM Answer Synthesis]
+    Synthesis --> FinalAnswer[Final Answer]
+```
+
+### 5. Additional Baselines (OPTIONAL)
 Use existing implementations if time permits:
 - Self-RAG
-- Contextual RAG
+- Comparison RAG
 
 **Strategy:** Leverage existing libraries rather than implementing from scratch
 
