@@ -1,6 +1,11 @@
 import re
+import json
 import logging
+import os
+from groq import Groq
+from dotenv import load_dotenv
 
+load_dotenv()
 logger = logging.getLogger(__name__)
 
 class FinancialFactExtractor:
@@ -9,89 +14,71 @@ class FinancialFactExtractor:
     Uses a hybrid approach of Regex and (eventually) LLM.
     """
     def __init__(self):
-        self.patterns = {
-            'revenue': re.compile(r'revenue(?:[\w\s]{0,20}?)\$?([\d,\.]+)', re.IGNORECASE),
-            'net_income': re.compile(r'net income(?:[\w\s]{0,20}?)\$?([\d,\.]+)', re.IGNORECASE),
-            'multiplier': re.compile(r'\s*(million|billion|trillion)', re.IGNORECASE),
-            'year': re.compile(r'\b(19|20)\d{2}\b')
-        }
+        self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+        self.model = "llama-3.3-70b-versatile"
+        
+        # Prolog schema definition for the prompt
+        self.schema = """
+        Use the following Prolog predicate formats:
+        1. revenue(Company, Year, AmountInMillions).
+        2. net_income(Company, Year, AmountInMillions).
+        3. profit_margin_target(Company, Year, Percentage).
+        4. growth_target(Company, Year, Percentage).
+        
+        Guidelines:
+        - Company: Convert to a lowercase, single_word atom (e.g., 'apple_inc' -> apple).
+        - Year: Extract a 4-digit integer. If missing, use 9999.
+        - AmountInMillions: ALWAYS convert dollar amounts to an integer representing MILLIONS (e.g., "$394 billion" -> 394000).
+        - Percentage: Extract as a float (e.g., "24.6%" -> 24.6).
+        """
 
-    def _normalize_amount(self, amount_str, text_after):
+    def extract_llm_facts(self, text, doc_id=None):
         """
-        Converts currency strings to integers scaled to MILLIONS.
+        Uses Llama 3.3 to extract highly structured facts mapping to Prolog predicates.
         """
-        # Cleanup string: remove commas and trailing periods
-        amount_str = amount_str.replace(',', '').rstrip('.')
+        prompt = f"""
+        Extract financial facts from the following text and format them exactly as a JSON list of Prolog predicates.
+        
+        {self.schema}
+        
+        Text to analyze:
+        {text[:2000]}
+        
+        Respond ONLY with a JSON object containing a "facts" array. 
+        Example format: {{"facts": ["revenue(apple, 2023, 394300)", "net_income(apple, 2023, 96900)"]}}
+        """
+        
         try:
-            amount = float(amount_str)
-        except ValueError:
-            return 0
+            completion = self.llm.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=self.model,
+                temperature=0.1,
+                response_format={"type": "json_object"}
+            )
+            response_json = json.loads(completion.choices[0].message.content)
+            facts = response_json.get("facts", [])
             
-        # Check for multiplier in following text
-        mult_match = self.patterns['multiplier'].match(text_after)
-        if mult_match:
-            mult = mult_match.group(1).lower()
-            if 'trillion' in mult:
-                amount *= 1_000_000
-            elif 'billion' in mult:
-                amount *= 1_000
-        return int(amount)
-
-    def extract_from_text(self, text, doc_id=None):
-        """
-        Extracts basic facts using regex.
-        Returns a list of formatted Prolog fact strings: 'predicate(arg1, arg2)'
-        """
-        facts = []
-        
-        # Extract year
-        year_match = self.patterns['year'].search(text)
-        year = year_match.group(0) if year_match else "unknown_year"
-        
-        # Use provided doc_id, or fallback to doc_year
-        # Replace non-alphanumeric chars in doc_id to make it a valid Prolog atom
-        safe_doc_id = str(doc_id or f"doc_{year}").replace(' ', '_').replace('-', '_').replace('.', '_').replace('/', '_').lower()
-
-        # Extract revenue
-        for match in self.patterns['revenue'].finditer(text):
-            amount = self._normalize_amount(match.group(1), text[match.end():])
-            facts.append(f"revenue('{safe_doc_id}', {amount})")
-
-        # Extract net income
-        for match in self.patterns['net_income'].finditer(text):
-            amount = self._normalize_amount(match.group(1), text[match.end():])
-            facts.append(f"net_income('{safe_doc_id}', {amount})")
-
-        return facts
-
-    def extract_llm_facts(self, text):
-        """To be implemented in later phases using Llama 3.1."""
-        # Placeholder for complex entity/relation extraction
-        return []
+            # Basic validation to ensure they look like predicates
+            valid_facts = [f for f in facts if "(" in f and ")" in f]
+            return valid_facts
+        except Exception as e:
+            logger.error(f"LLM Extraction failed: {e}")
+            return []
 
     def extract_all(self, text, doc_id=None):
-        """Combines regex and LLM extraction."""
-        facts = self.extract_from_text(text, doc_id)
-        facts.extend(self.extract_llm_facts(text))
-        return facts
+        """Main entry point. We now rely primarily on LLM extraction for robustness."""
+        return self.extract_llm_facts(text, doc_id)
 
 if __name__ == "__main__":
     extractor = FinancialFactExtractor()
     
-    # Test Revenue
-    test_text_1 = "Apple reported revenue of $394.3 billion"
-    print(f"Testing text: '{test_text_1}'")
-    facts_1 = extractor.extract_from_text(test_text_1, "apple_2023")
-    print("\nExtracted facts (Revenue):")
-    for fact in facts_1:
-        print(f" - {fact}")
-        
-    print("-" * 40)
+    # Test LLM Extraction
+    test_text = "In the fiscal year 2023, Apple Inc. reported a total revenue of $394.3 billion. The company's net income for the period stood at $96.9 billion, representing a significant portion of its earnings."
+    print(f"Testing text: '{test_text}'")
     
-    # Test Net Income
-    test_text_2 = "Net income increased to $96.9 billion"
-    print(f"Testing text: '{test_text_2}'")
-    facts_2 = extractor.extract_from_text(test_text_2, "apple_2023")
-    print("\nExtracted facts (Net Income):")
-    for fact in facts_2:
+    print("\nExtracting via LLM...")
+    facts = extractor.extract_all(test_text, "doc_1")
+    
+    print("\nExtracted Prolog Facts:")
+    for fact in facts:
         print(f" - {fact}")

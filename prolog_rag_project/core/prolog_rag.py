@@ -49,14 +49,9 @@ class PrologRAG:
 
     def translate_to_prolog(self, question):
         """
-        Simple keyword-based translation from NL to Prolog query.
+        Delegates to the LLM-powered QueryRouter.
         """
-        question_lower = question.lower()
-        if 'margin' in question_lower:
-            return "profit_margin(DocId, M)"
-        if 'growth' in question_lower:
-            return "growth_rate(DocOld, DocNew, Rate)"
-        return None
+        return self.router.translate_to_prolog(question)
 
     def _format_answer(self, question, results):
         """
@@ -133,19 +128,24 @@ class PrologRAG:
         proof_trace = []
 
         if query_type == QueryType.PROLOG:
-            print("Prolog path detected. Extracting facts...")
+            print("Prolog path detected. Extracting facts via LLM...")
             self.prolog_kb.clear() 
             
             total_facts = 0
-            for doc_text, doc_meta, doc_id in zip(documents, metadatas, ids):
-                actual_id = doc_meta.get('finqa_id', doc_id)
-                facts = self.fact_extractor.extract_from_text(doc_text, actual_id)
+            for i, (doc_text, doc_meta, doc_id) in enumerate(zip(documents, metadatas, ids)):
+                # Ensure a valid lowercase atom for Prolog
+                safe_id = f"doc_{i}"
+                if doc_meta and 'company' in doc_meta:
+                    safe_id = str(doc_meta['company']).lower().replace(' ', '_')
+                
+                print(f" - Scanning {safe_id}...")
+                facts = self.fact_extractor.extract_all(doc_text, safe_id)
                 
                 for fact in facts:
                     if self.prolog_kb.add_fact(fact):
                         total_facts += 1
             
-            print(f"Loaded {total_facts} facts into Prolog KB.")
+            print(f"Loaded {total_facts} structured facts into Prolog KB.")
 
             # 4. Prolog Reasoning
             prolog_query = self.translate_to_prolog(question)
@@ -182,6 +182,9 @@ if __name__ == "__main__":
     # Test initialization and routing
     rag = PrologRAG()
     
-    result = rag.query("What is the profit margin?")
+    # Test a complex question that requires LLM translation
+    test_q = "Compare the revenue of Apple and Microsoft"
+    result = rag.query(test_q)
+    
     print("\n--- FULL RESULT DICT ---")
     print(json.dumps(result, indent=2))
