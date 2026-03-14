@@ -5,78 +5,78 @@
     "type": "calculation",
     "expected_answer_type": "percentage",
     "difficulty": "medium",
-    "why_prolog_should_win": "Requires extracting two distinct figures (Net Income and Revenue) and applying a formal mathematical formula, which Prolog executes with 100% precision."
+    "why_prolog_should_win": "Requires extracting Net Income and Revenue, then applying the (Net Income / Revenue) formula. Prolog ensures mathematical correctness where LLMs might hallucinate the ratio."
   },
   {
     "id": 2,
-    "question": "How did the revenue change between Q3 and Q4?",
-    "type": "comparison",
-    "expected_answer_type": "currency_difference",
+    "question": "What was the revenue growth rate between 2022 and 2023?",
+    "type": "calculation",
+    "expected_answer_type": "percentage",
     "difficulty": "high",
-    "why_prolog_should_win": "Requires cross-document comparison and a subtraction/growth rate logic that standard vector search often mumbles."
+    "why_prolog_should_win": "Requires fetching revenue for two distinct time periods and applying the growth rate formula. Prolog handles the state across years perfectly."
   },
   {
     "id": 3,
-    "question": "Which subsidiary had the highest operating expense?",
+    "question": "Which company had higher revenue, Microsoft or Google?",
     "type": "comparison",
     "expected_answer_type": "entity_name",
     "difficulty": "medium",
-    "why_prolog_should_win": "Prolog can use the 'max' predicate over a set of asserted facts, ensuring the absolute correct entity is picked."
+    "why_prolog_should_win": "Standard RAG might just retrieve both docs; Prolog explicitly compares the two integer values to give a definitive logical answer."
   },
   {
     "id": 4,
-    "question": "What was the total revenue across all reported segments?",
-    "type": "calculation",
-    "expected_answer_type": "currency_sum",
+    "question": "How does the profit margin of Apple compare to Amazon?",
+    "type": "comparison",
+    "expected_answer_type": "textual_comparison",
     "difficulty": "high",
-    "why_prolog_should_win": "Requires summation of multiple distinct facts extracted from potentially different parts of the text, which is a structural data task."
+    "why_prolog_should_win": "This is a 'Compound Reasoning' task. It requires calculating margins for both (Step 1) and then performing a comparative operation (Step 2)."
   },
   {
     "id": 5,
-    "question": "Is the net income greater than the research and development spend?",
-    "type": "comparison",
-    "expected_answer_type": "boolean",
+    "question": "What was the total reported revenue for the fiscal year?",
+    "type": "simple_lookup",
+    "expected_answer_type": "currency",
     "difficulty": "simple",
-    "why_prolog_should_win": "Formal logical comparison (X > Y) is the core strength of Prolog's inference engine."
+    "why_prolog_should_win": "Prolog-RAG acts as a verified data extractor, ensuring the number returned is tagged to the correct metric in the knowledge base."
   },
   {
     "id": 6,
-    "question": "What is the tax rate applied to the pre-tax income?",
-    "type": "calculation",
-    "expected_answer_type": "percentage",
-    "difficulty": "medium",
-    "why_prolog_should_win": "Requires finding 'Provision for Taxes' and 'Pre-tax Income' and calculating the ratio."
+    "question": "What is the company's stated mission or vision in this report?",
+    "type": "simple_lookup",
+    "expected_answer_type": "string",
+    "difficulty": "simple",
+    "why_prolog_should_win": "This tests the Query Router's ability to stay in VECTOR mode for semantic, non-numerical questions."
   },
   {
     "id": 7,
-    "question": "List all years where the revenue exceeded $100 billion.",
+    "question": "When and where did the most recent earnings call take place?",
     "type": "simple_lookup",
-    "expected_answer_type": "list_of_years",
-    "difficulty": "medium",
-    "why_prolog_should_win": "Prolog can 'backtrack' to find every year that satisfies the condition, providing an exhaustive list."
+    "expected_answer_type": "datetime_location",
+    "difficulty": "simple",
+    "why_prolog_should_win": "Assesses the system's ability to extract specific metadata entities that form the 'Context' for financial reasoning."
   },
   {
     "id": 8,
-    "question": "What is the debt-to-equity ratio?",
-    "type": "calculation",
-    "expected_answer_type": "ratio",
-    "difficulty": "high",
-    "why_prolog_should_win": "Requires locating balance sheet figures that are often buried in complex tables and applying the ratio rule."
+    "question": "Which companies or segments reported revenue greater than $100 billion?",
+    "type": "constraint",
+    "expected_answer_type": "list_of_entities",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Uses high-pass filtering (Revenue > 100B). Prolog can iterate through all facts and return only those satisfying the logical constraint."
   },
   {
     "id": 9,
-    "question": "Did the company meet its target revenue of $500 million?",
-    "type": "comparison",
-    "expected_answer_type": "boolean",
-    "difficulty": "simple",
-    "why_prolog_should_win": "Direct comparison against a constant threshold value is a deterministic logical operation."
+    "question": "List all financial segments where the net income was positive but revenue decreased.",
+    "type": "constraint",
+    "expected_answer_type": "list_of_entities",
+    "difficulty": "high",
+    "why_prolog_should_win": "Requires checking multiple logical conditions simultaneously (NetIncome > 0 AND Revenue_Year_N < Revenue_Year_N-1)."
   },
   {
     "id": 10,
-    "question": "Compare the growth rate of segments A and B.",
-    "type": "comparison",
-    "expected_answer_type": "growth_comparison",
+    "question": "In which specific year did the company's revenue first exceed $50 billion?",
+    "type": "temporal",
+    "expected_answer_type": "year",
     "difficulty": "high",
-    "why_prolog_should_win": "Requires two multi-step calculations (growth for A and growth for B) followed by a final comparison stage."
+    "why_prolog_should_win": "Requires sorting financial facts by time and finding the earliest instance where a numerical threshold was crossed."
   }
 ]
