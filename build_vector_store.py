@@ -53,5 +53,21 @@ def build_store():
     print("\nVector store built successfully! ✅")
     print(f"Collection count: {collection.count()}")
 
+    # Test query for 'revenue'
+    print("\n--- Test Query ---")
+    query_text = "revenue"
+    print(f"Searching for: '{query_text}'")
+    
+    results = collection.query(
+        query_embeddings=[model.encode(query_text).tolist()],
+        n_results=1
+    )
+    
+    if results['documents'] and results['documents'][0]:
+        first_doc = results['documents'][0][0]
+        print(f"Top matched document (first 100 chars):\n{first_doc[:100]}...")
+    else:
+        print("No documents found.")
+
 if __name__ == "__main__":
     build_store()
