@@ -15,17 +15,19 @@ class PrologKnowledgeBase:
     def _load_rules(self):
         """Initialize standard financial reasoning rules."""
         rules = [
-            # Profit margin calculation: profit_margin(DocId, Margin)
-            "profit_margin(DocId, Margin) :- revenue(DocId, Rev), net_income(DocId, NI), Rev > 0, Margin is (NI / Rev) * 100",
+            # Base rules (handle the new 3-argument schema: revenue(Company, Year, Amount))
             
-            # Revenue comparison: higher_revenue(Doc1, Doc2)
-            "higher_revenue(Doc1, Doc2) :- revenue(Doc1, Rev1), revenue(Doc2, Rev2), Rev1 > Rev2",
+            # Profit margin calculation: profit_margin(Company, Year, Margin)
+            "profit_margin(Company, Year, Margin) :- revenue(Company, Year, Rev), net_income(Company, Year, NI), Rev > 0, Margin is (NI / Rev) * 100",
             
-            # Growth rate calculation: growth_rate(DocOld, DocNew, Rate)
-            "growth_rate(DocOld, DocNew, Rate) :- revenue(DocOld, RevOld), revenue(DocNew, RevNew), RevOld > 0, Rate is ((RevNew - RevOld) / RevOld) * 100",
+            # Revenue comparison (same year): higher_revenue(Comp1, Comp2, Year)
+            "higher_revenue(Comp1, Comp2, Year) :- revenue(Comp1, Year, Rev1), revenue(Comp2, Year, Rev2), Rev1 > Rev2",
             
-            # Constraint filtering: meets_criteria(Company, MinRevenue, MinMargin)
-            "meets_criteria(Company, MinRevenue, MinMargin) :- revenue(Company, Rev), Rev >= MinRevenue, profit_margin(Company, Margin), Margin >= MinMargin",
+            # Growth rate calculation: growth_rate(Company, YearOld, YearNew, Rate)
+            "growth_rate(Company, YearOld, YearNew, Rate) :- revenue(Company, YearOld, RevOld), revenue(Company, YearNew, RevNew), YearNew > YearOld, RevOld > 0, Rate is ((RevNew - RevOld) / RevOld) * 100",
+            
+            # Constraint filtering: meets_criteria(Company, Year, MinRevenue, MinMargin)
+            "meets_criteria(Company, Year, MinRevenue, MinMargin) :- revenue(Company, Year, Rev), Rev >= MinRevenue, profit_margin(Company, Year, Margin), Margin >= MinMargin",
             
             # Temporal: first time condition met
             "first_exceeds(Company, Threshold, Year) :- revenue(Company, Year, Rev), Rev >= Threshold, \+ (revenue(Company, YearBefore, RevBefore), YearBefore < Year, RevBefore >= Threshold)"
@@ -73,12 +75,12 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     kb = PrologKnowledgeBase()
     
-    # Growth Rate Test Scenario
-    print("--- Testing Growth Rate ---")
-    kb.add_fact("revenue('old', 100)") # 100 million
-    kb.add_fact("revenue('new', 120)") # 120 million
+    # Growth Rate Test Scenario (New Schema)
+    print("--- Testing Growth Rate (New Schema) ---")
+    kb.add_fact("revenue(apple, 2022, 100000)") # 100 billion
+    kb.add_fact("revenue(apple, 2023, 120000)") # 120 billion
     
-    results, proof = kb.query("growth_rate('old', 'new', G)")
+    results, proof = kb.query("growth_rate(apple, 2022, 2023, G)")
     if results:
         growth = results[0]['G']
         print(f"Revenue Growth Rate: {growth}% ✅")
