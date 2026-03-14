@@ -162,7 +162,7 @@ Traditional RAG systems fail on complex financial queries requiring:
 **Retrieval:** Top-K semantic search (K=3 default)
 
 ### 3. Fact Extraction
-**Approach:** Hybrid (regex + LLM)  
+**Approach:** Hybrid (regex + LLM)   : LLM necessary and mostly sufficient and flexible, but regex useful still
 **Regex Patterns:**
 - Revenue: `revenue of \$?([\d,\.]+)\s*(million|billion)`
 - Net income: `net income of \$?([\d,\.]+)\s*(million|billion)`
