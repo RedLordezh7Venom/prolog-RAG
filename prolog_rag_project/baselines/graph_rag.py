@@ -268,7 +268,11 @@ class SOTAGraphRAG:
         }
 
 if __name__ == "__main__":
-    # Note: Using small limit_docs for fast demonstration
+    # Test block for SOTAGraphRAG
+    # Using a small limit for quick verification
     sota_rag = SOTAGraphRAG(limit_docs=5)
-    res = sota_rag.query("What is Apple's revenue and how does it relate to other entities?")
-    print(f"\nFinal Answer:\n{res['answer']}")
+    test_q = "What is the revenue?"
+    res = sota_rag.query(test_q)
+    
+    print(f"\nFinal Answer: {res['answer']}")
+    print(f"Graph Nodes Count: {res['graph_nodes']}")

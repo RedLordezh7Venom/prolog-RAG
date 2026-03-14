@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "question": "What is the profit margin for the company in 2023?",
+    "type": "calculation",
+    "expected_answer_type": "percentage",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Requires extracting two distinct figures (Net Income and Revenue) and applying a formal mathematical formula, which Prolog executes with 100% precision."
+  },
+  {
+    "id": 2,
+    "question": "How did the revenue change between Q3 and Q4?",
+    "type": "comparison",
+    "expected_answer_type": "currency_difference",
+    "difficulty": "high",
+    "why_prolog_should_win": "Requires cross-document comparison and a subtraction/growth rate logic that standard vector search often mumbles."
+  },
+  {
+    "id": 3,
+    "question": "Which subsidiary had the highest operating expense?",
+    "type": "comparison",
+    "expected_answer_type": "entity_name",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Prolog can use the 'max' predicate over a set of asserted facts, ensuring the absolute correct entity is picked."
+  },
+  {
+    "id": 4,
+    "question": "What was the total revenue across all reported segments?",
+    "type": "calculation",
+    "expected_answer_type": "currency_sum",
+    "difficulty": "high",
+    "why_prolog_should_win": "Requires summation of multiple distinct facts extracted from potentially different parts of the text, which is a structural data task."
+  },
+  {
+    "id": 5,
+    "question": "Is the net income greater than the research and development spend?",
+    "type": "comparison",
+    "expected_answer_type": "boolean",
+    "difficulty": "simple",
+    "why_prolog_should_win": "Formal logical comparison (X > Y) is the core strength of Prolog's inference engine."
+  },
+  {
+    "id": 6,
+    "question": "What is the tax rate applied to the pre-tax income?",
+    "type": "calculation",
+    "expected_answer_type": "percentage",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Requires finding 'Provision for Taxes' and 'Pre-tax Income' and calculating the ratio."
+  },
+  {
+    "id": 7,
+    "question": "List all years where the revenue exceeded $100 billion.",
+    "type": "simple_lookup",
+    "expected_answer_type": "list_of_years",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Prolog can 'backtrack' to find every year that satisfies the condition, providing an exhaustive list."
+  },
+  {
+    "id": 8,
+    "question": "What is the debt-to-equity ratio?",
+    "type": "calculation",
+    "expected_answer_type": "ratio",
+    "difficulty": "high",
+    "why_prolog_should_win": "Requires locating balance sheet figures that are often buried in complex tables and applying the ratio rule."
+  },
+  {
+    "id": 9,
+    "question": "Did the company meet its target revenue of $500 million?",
+    "type": "comparison",
+    "expected_answer_type": "boolean",
+    "difficulty": "simple",
+    "why_prolog_should_win": "Direct comparison against a constant threshold value is a deterministic logical operation."
+  },
+  {
+    "id": 10,
+    "question": "Compare the growth rate of segments A and B.",
+    "type": "comparison",
+    "expected_answer_type": "growth_comparison",
+    "difficulty": "high",
+    "why_prolog_should_win": "Requires two multi-step calculations (growth for A and growth for B) followed by a final comparison stage."
+  }
+]
