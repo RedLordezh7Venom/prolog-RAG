@@ -3,7 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class FactExtractor:
+class FinancialFactExtractor:
     """
     Extracts structured facts (Prolog predicates) from financial text.
     Uses a hybrid approach of Regex and (eventually) LLM.
@@ -71,7 +71,7 @@ class FactExtractor:
         return facts
 
 if __name__ == "__main__":
-    extractor = FactExtractor()
+    extractor = FinancialFactExtractor()
     
     # Test Revenue
     test_text_1 = "Apple reported revenue of $394.3 billion"
