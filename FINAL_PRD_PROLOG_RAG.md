@@ -169,7 +169,7 @@ Traditional RAG systems fail on complex financial queries requiring:
 - Percentages: `(increased|decreased) by ([\d\.]+)%`
 - Years: `\b(19|20)\d{2}\b`
 
-**LLM:** Llama 3.1 8B (local, via llama-cpp-python)  
+**LLM:** Llama 3.3 70B (groq)
 **Output:** Prolog predicates like `revenue(company, year, amount)`
 
 ### 4. Prolog Knowledge Base
