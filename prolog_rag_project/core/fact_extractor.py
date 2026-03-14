@@ -32,27 +32,30 @@ class FactExtractor:
                 amount *= 1 # 1M = 1M
         return int(amount)
 
-    def extract_regex_facts(self, text, doc_id=None):
+    def extract_from_text(self, text, doc_id=None):
         """
         Extracts basic facts using regex.
-        Returns a list of tuples: (predicate, args)
+        Returns a list of formatted Prolog fact strings: 'predicate(arg1, arg2)'
         """
         facts = []
         
         # Extract year
         year_match = self.patterns['year'].search(text)
         year = year_match.group(0) if year_match else "unknown_year"
+        
+        # Use provided doc_id, or fallback to doc_year
+        # Replace non-alphanumeric chars in doc_id to make it a valid Prolog atom
+        safe_doc_id = str(doc_id or f"doc_{year}").replace(' ', '_').replace('-', '_').replace('.', '_').replace('/', '_').lower()
 
         # Extract revenue
         for match in self.patterns['revenue'].finditer(text):
             amount = self._normalize_amount(match.group(1), match.group(2))
-            # Format: revenue(doc_id, amount) or revenue(company_year, amount)
-            facts.append(('revenue', doc_id or f"doc_{year}", amount))
+            facts.append(f"revenue('{safe_doc_id}', {amount})")
 
         # Extract net income
         for match in self.patterns['net_income'].finditer(text):
             amount = self._normalize_amount(match.group(1), match.group(2))
-            facts.append(('net_income', doc_id or f"doc_{year}", amount))
+            facts.append(f"net_income('{safe_doc_id}', {amount})")
 
         return facts
 
@@ -63,6 +66,6 @@ class FactExtractor:
 
     def extract_all(self, text, doc_id=None):
         """Combines regex and LLM extraction."""
-        facts = self.extract_regex_facts(text, doc_id)
+        facts = self.extract_from_text(text, doc_id)
         facts.extend(self.extract_llm_facts(text))
         return facts
