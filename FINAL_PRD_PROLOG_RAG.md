@@ -327,9 +327,25 @@ Query → Embed → Retrieve Top-K → Extract Answer → Return
 
 **Note:** Full GraphRAG would take a week. Build simplified version.
 
-### 3. Additional Baselines (OPTIONAL)
+### 3. Corrective RAG (CRAG) (REQUIRED)
+**Description:** Self-correcting retrieval system that grades and rewrites queries.  
+**Implementation:** CorrectiveRAG class with LLM Grader + Rewriter.  
+**Purpose:** Minimize hallucinations by filtering irrelevant context.
+
+**Architecture:**
+```mermaid
+graph TD
+    Query[User Query] --> Retrieval[Initial Retrieval]
+    Retrieval --> Grader{Retrieval Grader}
+    Grader -- "Some/All Relevant" --> Synthesis[Final Synthesis]
+    Grader -- "None Relevant" --> Rewriter[Query Rewriter]
+    Rewriter --> ReRetrieval[Re-retrieval]
+    ReRetrieval --> Synthesis
+    Synthesis --> Answer[Human-Readable Answer]
+```
+
+### 4. Additional Baselines (OPTIONAL)
 Use existing implementations if time permits:
-- CRAG (Corrective RAG)
 - Self-RAG
 - Contextual RAG
 
