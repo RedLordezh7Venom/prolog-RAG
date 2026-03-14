@@ -69,3 +69,13 @@ class FactExtractor:
         facts = self.extract_from_text(text, doc_id)
         facts.extend(self.extract_llm_facts(text))
         return facts
+
+if __name__ == "__main__":
+    extractor = FactExtractor()
+    test_text = "Apple reported revenue of $394.3 billion"
+    print(f"Testing text: '{test_text}'")
+    
+    facts = extractor.extract_from_text(test_text, "apple_2023")
+    print("\nExtracted facts:")
+    for fact in facts:
+        print(f" - {fact}")
