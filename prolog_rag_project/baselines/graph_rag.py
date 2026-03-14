@@ -136,7 +136,69 @@ class SOTAGraphRAG:
             except:
                 continue
 
-    def query(self, question, top_k=2):
+    def query(self, question):
+        """
+        Keyword-based Graph Search:
+        1. Search graph nodes for text matching question words.
+        2. Build a subgraph from relevant nodes.
+        3. Synthesize answer using the subgraph context.
+        """
+        print(f"\n--- Keyword-Graph-Query: {question} ---")
+        
+        # 1. & 2. Node Keyword Match & Subgraph Building
+        words = set(re.findall(r'\w+', question.lower()))
+        # Filter out common stop words if necessary, but keep it simple
+        
+        relevant_nodes = []
+        for node, data in self.graph.nodes(data=True):
+            node_str = str(node).lower()
+            # Match if any word in question appears in node name or its text content
+            if any(word in node_str for word in words):
+                relevant_nodes.append(node)
+            elif data.get('text') and any(word in data.get('text').lower() for word in words):
+                relevant_nodes.append(node)
+
+        # Build Subgraph from relevant nodes and their immediate neighbors
+        subgraph_nodes = set(relevant_nodes)
+        for node in relevant_nodes:
+            subgraph_nodes.update(self.graph.neighbors(node))
+            
+        subgraph = self.graph.subgraph(subgraph_nodes)
+        
+        # 3. Answer Synthesis
+        # Extract text context from the subgraph
+        context_texts = []
+        entities = []
+        for node, data in subgraph.nodes(data=True):
+            if data.get('type') == 'document':
+                context_texts.append(data.get('text', ''))
+            else:
+                entities.append(str(node))
+
+        context_str = "\n".join(list(set(context_texts))[:3]) # Limit context to top matching docs
+        entities_str = ", ".join(entities[:10])
+
+        system_prompt = "You are a GraphRAG Assistant. Use the provided subgraph context to answer the question."
+        prompt = f"Question: {question}\n\nRelevant Entities: {entities_str}\n\nRelevant Context:\n{context_str}"
+
+        try:
+            completion = self.llm.chat.completions.create(
+                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
+                model=self.model,
+                temperature=0.1
+            )
+            answer = completion.choices[0].message.content
+        except Exception as e:
+            answer = f"Error: {str(e)}"
+
+        return {
+            'answer': answer,
+            'method': 'graph_rag',
+            'graph_nodes': subgraph.number_of_nodes(),
+            'has_proof': False
+        }
+
+    def query_sota(self, question, top_k=2):
         """
         SOTA Hybrid Search:
         1. Local Search: Find entities via Vector Search -> Graph Expansion.
