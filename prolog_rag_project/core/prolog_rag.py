@@ -48,6 +48,23 @@ class PrologRAG:
             return "growth_rate(DocOld, DocNew, Rate)"
         return None
 
+    def _format_answer(self, question, results):
+        """
+        Formats Prolog reasoning results into a human-readable answer.
+        """
+        if not results:
+            return None
+            
+        res = results[0]
+        if 'M' in res:
+            return f"Profit margin: {res['M']}%"
+        if 'Rate' in res:
+            return f"Growth rate: {res['Rate']}%"
+        
+        # Generic formatting for other potential fields
+        parts = [f"{k}: {v}" for k, v in res.items() if k not in ['DocId', 'DocOld', 'DocNew']]
+        return ", ".join(parts) if parts else "Condition met in Knowledge Base."
+
     def query(self, question, top_k=3):
         """
         Executes a query through the Prolog-RAG pipeline.
@@ -99,17 +116,27 @@ class PrologRAG:
             else:
                 print("Could not translate question to Prolog query.")
         
+        # 5. Final Answer Generation
+        answer = self._format_answer(question, prolog_results)
+        
+        # Fallback to vector search snippet if no prolog answer
+        if not answer:
+            print("Falling back to vector snippet...")
+            answer = f"Based on retrieved documents: {documents[0][:200]}..."
+
         return {
-            'type': query_type,
-            'results': prolog_results,
-            'proof': proof_trace,
-            'docs': documents
+            'question': question,
+            'route': query_type.value,
+            'answer': answer,
+            'proof_trace': proof_trace,
+            'source_docs': documents[:2]
         }
 
 if __name__ == "__main__":
+    import json
     # Test initialization and routing
     rag = PrologRAG()
     
-    rag.query("What is the profit margin of Apple?")
-    rag.query("Compare revenue and profit growth for 2023")
-    rag.query("What is Apple's mission statement?")
+    result = rag.query("What is the profit margin?")
+    print("\n--- FULL RESULT DICT ---")
+    print(json.dumps(result, indent=2))

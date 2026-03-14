@@ -10,26 +10,31 @@ class FinancialFactExtractor:
     """
     def __init__(self):
         self.patterns = {
-            'revenue': re.compile(r'revenue(?:[\w\s]{0,20}?)\$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
-            'net_income': re.compile(r'net income(?:[\w\s]{0,20}?)\$?([\d,\.]+)\s*(million|billion|trillion)?', re.IGNORECASE),
+            'revenue': re.compile(r'revenue(?:[\w\s]{0,20}?)\$?([\d,\.]+)', re.IGNORECASE),
+            'net_income': re.compile(r'net income(?:[\w\s]{0,20}?)\$?([\d,\.]+)', re.IGNORECASE),
+            'multiplier': re.compile(r'\s*(million|billion|trillion)', re.IGNORECASE),
             'year': re.compile(r'\b(19|20)\d{2}\b')
         }
 
-    def _normalize_amount(self, amount_str, multiplier_str):
+    def _normalize_amount(self, amount_str, text_after):
         """
         Converts currency strings to integers scaled to MILLIONS.
-        This prevents overflow issues in the pyswip bridge (expected 'long').
-        Example: '394.3 billion' -> 394300
         """
-        amount = float(amount_str.replace(',', ''))
-        if multiplier_str:
-            mult = multiplier_str.lower()
+        # Cleanup string: remove commas and trailing periods
+        amount_str = amount_str.replace(',', '').rstrip('.')
+        try:
+            amount = float(amount_str)
+        except ValueError:
+            return 0
+            
+        # Check for multiplier in following text
+        mult_match = self.patterns['multiplier'].match(text_after)
+        if mult_match:
+            mult = mult_match.group(1).lower()
             if 'trillion' in mult:
-                amount *= 1_000_000 # 1T = 1,000,000M
+                amount *= 1_000_000
             elif 'billion' in mult:
-                amount *= 1_000 # 1B = 1,000M
-            elif 'million' in mult:
-                amount *= 1 # 1M = 1M
+                amount *= 1_000
         return int(amount)
 
     def extract_from_text(self, text, doc_id=None):
@@ -49,12 +54,12 @@ class FinancialFactExtractor:
 
         # Extract revenue
         for match in self.patterns['revenue'].finditer(text):
-            amount = self._normalize_amount(match.group(1), match.group(2))
+            amount = self._normalize_amount(match.group(1), text[match.end():])
             facts.append(f"revenue('{safe_doc_id}', {amount})")
 
         # Extract net income
         for match in self.patterns['net_income'].finditer(text):
-            amount = self._normalize_amount(match.group(1), match.group(2))
+            amount = self._normalize_amount(match.group(1), text[match.end():])
             facts.append(f"net_income('{safe_doc_id}', {amount})")
 
         return facts
