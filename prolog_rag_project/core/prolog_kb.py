@@ -73,15 +73,14 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     kb = PrologKnowledgeBase()
     
-    # 1. Add facts
-    kb.add_fact("revenue('test_doc', 1000)")      # 1000 million
-    kb.add_fact("net_income('test_doc', 250)")    # 250 million
+    # Growth Rate Test Scenario
+    print("--- Testing Growth Rate ---")
+    kb.add_fact("revenue('old', 100)") # 100 million
+    kb.add_fact("revenue('new', 120)") # 120 million
     
-    # 2. Query margin
-    results, proof = kb.query("profit_margin('test_doc', M)")
-    
+    results, proof = kb.query("growth_rate('old', 'new', G)")
     if results:
-        margin = results[0]['M']
-        print(f"Calculated Profit Margin: {margin}% ✅")
+        growth = results[0]['G']
+        print(f"Revenue Growth Rate: {growth}% ✅")
     else:
-        print("Reasoning failed. ❌")
+        print("Growth calculation failed. ❌")
