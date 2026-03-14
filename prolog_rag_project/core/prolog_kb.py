@@ -3,15 +3,16 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class PrologKB:
+class PrologKnowledgeBase:
     """
     Manages the SWI-Prolog knowledge base and executes reasoning queries.
     """
     def __init__(self):
         self.prolog = Prolog()
-        self._init_rules()
+        self.facts_loaded = []
+        self._load_rules()
 
-    def _init_rules(self):
+    def _load_rules(self):
         """Initialize standard financial reasoning rules."""
         rules = [
             # Profit margin calculation: profit_margin(DocId, Margin)
@@ -33,25 +34,54 @@ class PrologKB:
             self.prolog.assertz(rule)
             logger.debug(f"Asserted rule: {rule}")
 
-    def add_fact(self, predicate, *args):
+    def add_fact(self, fact_str):
         """
-        Adds a fact to the KB.
-        Example: add_fact("revenue", "apple_2023", 394300000000)
+        Adds a pre-formatted fact string to the KB.
+        Returns True if successful, False otherwise.
         """
-        fact = f"{predicate}({', '.join(map(str, args))})"
-        self.prolog.assertz(fact)
-        logger.debug(f"Added fact: {fact}")
+        try:
+            self.prolog.assertz(fact_str)
+            self.facts_loaded.append(fact_str)
+            logger.debug(f"Added fact: {fact_str}")
+            return True
+        except Exception as e:
+            logger.error(f"Error adding fact '{fact_str}': {e}")
+            return False
 
     def query(self, query_str):
         """
-        Executes a Prolog query and returns results as a list of dictionaries.
+        Executes a Prolog query.
+        Returns tuple: (list of result dicts, proof_trace list)
         """
-        logger.debug(f"Executing query: {query_str}")
-        return list(self.prolog.query(query_str))
+        try:
+            logger.debug(f"Executing query: {query_str}")
+            results = list(self.prolog.query(query_str))
+            return results, []
+        except Exception as e:
+            logger.error(f"Error executing query '{query_str}': {e}")
+            return [], []
 
     def clear(self):
         """Clears the dynamic facts from the KB (simple reset simulation)."""
         # Note: pyswip doesn't have a direct 'clear all', so we might need a more robust reset 
         # for a production system. For now, we'll re-init if needed.
         self.prolog = Prolog()
-        self._init_rules()
+        self.facts_loaded = []
+        self._load_rules()
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    kb = PrologKnowledgeBase()
+    
+    # 1. Add facts
+    kb.add_fact("revenue('test_doc', 1000)")      # 1000 million
+    kb.add_fact("net_income('test_doc', 250)")    # 250 million
+    
+    # 2. Query margin
+    results, proof = kb.query("profit_margin('test_doc', M)")
+    
+    if results:
+        margin = results[0]['M']
+        print(f"Calculated Profit Margin: {margin}% ✅")
+    else:
+        print("Reasoning failed. ❌")
