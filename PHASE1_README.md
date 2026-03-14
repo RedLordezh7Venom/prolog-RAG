@@ -6,6 +6,7 @@
 - [x] **Query Router**: Keyword-based classification between formal reasoning and semantic search.
 - [x] **Vector Store**: Initialized ChromaDB with the FinQA dataset.
 - [x] **Main Pipeline**: Integrated `PrologRAG` class that coordinates retrieval and reasoning.
+- [X] **SOTA Baselines**: Added GraphRAG (Entity-Bridge Pattern) and Corrective RAG (CRAG) for competitive benchmarking.
 - [x] **Answer Formatting**: Human-readable conversion of logical proofs.
 
 ## 🔍 Example Queries
@@ -22,6 +23,9 @@
 - `prolog_rag_project/core/query_router.py`: Intelligent query classification.
 - `prolog_rag_project/core/prolog_rag.py`: Central orchestrator.
 - `demo.ipynb`: Interactive demonstration and visualization.
+- `prolog_rag_project/baselines/naive_rag.py`: Traditional Retrieve-and-Generate.
+- `prolog_rag_project/baselines/graph_rag.py`: SOTA-inspired Entity-Bridge GraphRAG.
+- `prolog_rag_project/baselines/corrective_rag.py`: Self-correcting retrieval system (CRAG).
 - `build_vector_store.py`: Database initialization script.
 - `download_data.py`: Data ingestion script.
 
