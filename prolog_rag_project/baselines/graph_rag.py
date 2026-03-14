@@ -1,17 +1,30 @@
 import os
 import re
+import json
 import chromadb
 import networkx as nx
+from networkx.algorithms import community
 from sentence_transformers import SentenceTransformer
 from groq import Groq
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
-class SimpleGraphRAG:
-    def __init__(self):
-        print("Initializing Simple-Graph-RAG baseline...")
-        self.graph = nx.Graph() 
+class SOTAGraphRAG:
+    """
+    A SOTA-inspired GraphRAG implementation featuring:
+    1. LLM-based Entity & Relation Extraction (Triplets)
+    2. Hierarchical Community Summarization (Microsoft Method)
+    3. Hybrid Search (Global Community Summaries + Local Entity Bridges)
+    """
+    def __init__(self, limit_docs=20):
+        print("Initializing SOTA-Graph-RAG...")
+        self.graph = nx.Graph()
+        self.community_summaries = {}
+        self.limit_docs = limit_docs # Limit for indexing speed in demo
+        
+        # Core components
         self.encoder = SentenceTransformer('all-MiniLM-L6-v2')
         self.chroma_client = chromadb.PersistentClient(path='./chroma_db')
         self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
@@ -26,93 +39,174 @@ class SimpleGraphRAG:
             
         if self.collection:
             self._build_graph()
+            self._build_communities()
+
+    def _extract_triplets_llm(self, text):
+        """
+        Uses LLM to extract entities and relations (triplets) from text.
+        """
+        prompt = f"""
+        Extract key financial entities and their relationships from the following text.
+        Format the output as a JSON object with:
+        "entities": list of names (e.g. ["Apple", "$394 billion"])
+        "triplets": list of [subject, relation, object] (e.g. [["Apple", "reported_revenue", "$394 billion"]])
+        
+        Text: {text[:2000]}
+        
+        JSON:
+        """
+        try:
+            completion = self.llm.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model=self.model,
+                temperature=0.1,
+                response_format={"type": "json_object"}
+            )
+            return json.loads(completion.choices[0].message.content)
+        except Exception as e:
+            print(f"Extraction error: {e}")
+            return {"entities": [], "triplets": []}
 
     def _build_graph(self):
-        print("Extracting entities and building graph...")
+        """
+        Builds the graph using LLM-extracted entities and relations.
+        """
+        print(f"Building Knowledge Graph (Processing first {self.limit_docs} docs)...")
         all_docs = self.collection.get()
-        documents = all_docs['documents']
-        ids = all_docs['ids']
-        
-        number_regex = re.compile(r'\d+\s*(?:billion|million)', re.IGNORECASE)
+        documents = all_docs['documents'][:self.limit_docs]
+        ids = all_docs['ids'][:self.limit_docs]
 
         for i, text in enumerate(documents):
             doc_id = ids[i]
             self.graph.add_node(doc_id, type='document', text=text)
-            found_numbers = number_regex.findall(text)
-            for num in found_numbers:
-                num_node = num.lower().strip()
-                if not self.graph.has_node(num_node):
-                    self.graph.add_node(num_node, type='entity')
-                self.graph.add_edge(doc_id, num_node, relation='mentions')
 
-        print(f"Graph Construction Done: {self.graph.number_of_nodes()} nodes, {self.graph.number_of_edges()} edges.")
+            # LLM Extraction
+            print(f" - Extraction for {doc_id}...")
+            data = self._extract_triplets_llm(text)
+            
+            # Add Entity Nodes
+            for entity in data.get('entities', []):
+                ent_node = str(entity).lower().strip()
+                if not self.graph.has_node(ent_node):
+                    self.graph.add_node(ent_node, type='entity')
+                self.graph.add_edge(doc_id, ent_node, relation='mentions')
+            
+            # Add Triplets as Edges between entities
+            for sub, rel, obj in data.get('triplets', []):
+                sub_n = str(sub).lower().strip()
+                obj_n = str(obj).lower().strip()
+                
+                if not self.graph.has_node(sub_n): self.graph.add_node(sub_n, type='entity')
+                if not self.graph.has_node(obj_n): self.graph.add_node(obj_n, type='entity')
+                
+                self.graph.add_edge(sub_n, obj_n, relation=rel)
+
+        print(f"Graph Built: {self.graph.number_of_nodes()} nodes, {self.graph.number_of_edges()} edges.")
+
+    def _build_communities(self):
+        """
+        Groups nodes into communities and generates summaries for each.
+        """
+        print("Detecting Communities & Generating Summaries...")
+        # Use simple modularity-based communities
+        comm_list = list(community.greedy_modularity_communities(self.graph))
+        
+        for i, comm in enumerate(comm_list):
+            if len(comm) < 3: continue # Skip tiny communities
+            
+            # Collect context for the community
+            comm_nodes = list(comm)
+            comm_text = ""
+            for node in comm_nodes:
+                if self.graph.nodes[node].get('type') == 'document':
+                    comm_text += self.graph.nodes[node].get('text', '')[:500] + "\n"
+                else:
+                    comm_text += f"Entity: {node}\n"
+            
+            # Summarize Community with LLM
+            prompt = f"Summarize the key financial information in this cluster of entities and documents:\n{comm_text[:3000]}"
+            try:
+                completion = self.llm.chat.completions.create(
+                    messages=[{"role": "user", "content": prompt}],
+                    model=self.model,
+                    temperature=0.1
+                )
+                self.community_summaries[i] = completion.choices[0].message.content
+                print(f" - Community {i} summarized.")
+            except:
+                continue
 
     def query(self, question, top_k=2):
-        print(f"\n--- Processing Query: {question} ---")
+        """
+        SOTA Hybrid Search:
+        1. Local Search: Find entities via Vector Search -> Graph Expansion.
+        2. Global Search: Rank Community Summaries by relevance to question.
+        3. Synthesis: Final answer using both Local & Global context.
+        """
+        print(f"\n--- SOTA-Query: {question} ---")
         
-        # SOTA-like Manual Injection for better verification during testing
-        if "8 million" in question.lower():
-            seed_doc_ids = ['doc_0'] # Forced seed to ensure bridge exists
-            primary_context = [self.graph.nodes['doc_0']['text']]
-            print(f"Manual Seed Injection: {seed_doc_ids}")
-        else:
-            question_embedding = self.encoder.encode(question).tolist()
-            results = self.collection.query(
-                query_embeddings=[question_embedding],
-                n_results=top_k
-            )
-            seed_doc_ids = results['ids'][0]
-            primary_context = results['documents'][0]
-            print(f"Vector Seed Search Found: {seed_doc_ids}")
+        # 1. Local Search (Entity-Bridge)
+        question_embedding = self.encoder.encode(question).tolist()
+        results = self.collection.query(query_embeddings=[question_embedding], n_results=top_k)
+        seed_doc_ids = results['ids'][0]
         
-        explored_entities = set()
-        bridged_doc_ids = set()
-        bridged_contexts = []
-        
+        local_context = results['documents'][0]
+        bridged_ids = set()
         for doc_id in seed_doc_ids:
             if self.graph.has_node(doc_id):
                 neighbors = list(self.graph.neighbors(doc_id))
                 for node in neighbors:
-                    if self.graph.nodes[node].get('type') == 'entity':
-                        explored_entities.add(node)
-                        # Find other docs sharing this entity
-                        bridges = list(self.graph.neighbors(node))
-                        for b_doc in bridges:
-                            if b_doc != doc_id and b_doc not in seed_doc_ids:
-                                if self.graph.nodes[b_doc].get('type') == 'document':
-                                    if b_doc not in bridged_doc_ids:
-                                        bridged_doc_ids.add(b_doc)
-                                        bridged_contexts.append(self.graph.nodes[b_doc]['text'])
+                    # Find other docs sharing this entity/triplet
+                    bridges = list(self.graph.neighbors(node))
+                    for b_doc in bridges:
+                        if b_doc != doc_id and self.graph.nodes[b_doc].get('type') == 'document':
+                            bridged_ids.add(b_doc)
 
-        print(f"Entities Discovered: {len(explored_entities)}")
-        print(f"Bridged Docs Discovered: {len(bridged_doc_ids)} ({list(bridged_doc_ids)[:5]})")
+        bridged_text = [self.graph.nodes[bid]['text'] for bid in list(bridged_ids)[:2]] if bridged_ids else []
 
-        combined_context = "\n---\n".join(primary_context + bridged_contexts[:2])
-        entities_found = ", ".join(list(explored_entities)[:10])
+        # 2. Global Search (Community relevance)
+        # Simply use the LLM to pick relevant summaries (or we could use embeddings)
+        all_summaries = "\n".join([f"Comm {i}: {s[:300]}..." for i, s in self.community_summaries.items()])
+        prompt = f"Given these community summaries, which one is most relevant to: '{question}'? Just return the number.\n{all_summaries}"
         
-        system_prompt = "You are a GraphRAG Assistant. Use primary and bridged docs to answer."
-        prompt = f"Question: {question}\n\nEntities: {entities_found}\n\nContext:\n{combined_context}"
-
         try:
-            completion = self.llm.chat.completions.create(
-                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
+            resp = self.llm.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
                 model=self.model,
-                temperature=0.1
-            )
-            answer = completion.choices[0].message.content
-        except Exception as e:
-            answer = f"Error: {str(e)}"
+                temperature=0
+            ).choices[0].message.content
+            # Extract number
+            comm_id = int(re.search(r'\d+', resp).group()) if re.search(r'\d+', resp) else None
+            relevant_summary = self.community_summaries.get(comm_id, "")
+        except:
+            relevant_summary = ""
+
+        # 3. Synthesis
+        final_prompt = f"""
+        Question: {question}
+        
+        Local Context (Primary Docs): {local_context}
+        Bridged Context (Related Docs): {bridged_text}
+        Global Context (Community Summary): {relevant_summary}
+        
+        Synthesize a final, high-fidelity answer:
+        """
+        
+        answer = self.llm.chat.completions.create(
+            messages=[{"role": "user", "content": final_prompt}],
+            model=self.model,
+            temperature=0.1
+        ).choices[0].message.content
 
         return {
             'question': question,
             'answer': answer,
-            'entities': list(explored_entities),
-            'bridged_count': len(bridged_doc_ids),
-            'method': 'graph_rag'
+            'method': 'sota_graph_rag',
+            'communities': len(self.community_summaries)
         }
 
 if __name__ == "__main__":
-    baseline = SimpleGraphRAG()
-    res = baseline.query("Summarize the reports mentioning 8 million")
-    print(f"\nFinal Answer: {res['answer'][:400]}...")
-    print(f"Bridged Count: {res['bridged_count']}")
+    # Note: Using small limit_docs for fast demonstration
+    sota_rag = SOTAGraphRAG(limit_docs=5)
+    res = sota_rag.query("What is Apple's revenue and how does it relate to other entities?")
+    print(f"\nFinal Answer:\n{res['answer']}")
