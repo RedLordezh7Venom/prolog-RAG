@@ -1,8 +1,14 @@
+import os
 import chromadb
+from dotenv import load_dotenv
+from groq import Groq
 from sentence_transformers import SentenceTransformer
 from .prolog_kb import PrologKnowledgeBase
 from .fact_extractor import FinancialFactExtractor
 from .query_router import QueryRouter, QueryType
+
+# Load environment variables from .env
+load_dotenv()
 
 class PrologRAG:
     """
@@ -34,6 +40,10 @@ class PrologRAG:
         # 6. Initialize Query Router
         print(" - Setting up Query Router...")
         self.router = QueryRouter()
+
+        # 7. Initialize Groq LLM Client
+        print(" - Connecting to Groq LLM...")
+        self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
         
         print("\nProlog-RAG system initialized successfully! ✅")
 
