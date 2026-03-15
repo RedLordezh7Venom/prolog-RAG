@@ -33,23 +33,35 @@ class QueryRouter:
         Available predicates in the Knowledge Base:
         - revenue(Company, Year, AmountInMillions).
         - net_income(Company, Year, AmountInMillions).
-        - profit_margin_target(Company, Year, Percentage).
-        - growth_target(Company, Year, Percentage).
+        - operating_income(Company, Year, AmountInMillions).
+        - allocated_cost(Company, Year, Category, AmountInMillions).
+        - value_at_risk(Company, Year, AverageInMillions).
+        - gross_margin(Company, Year, Percentage).
+        - sga_percentage(Company, Year, Percentage).
+        - backlog(Company, Year, AmountInMillions).
+        - authorized_repurchase(Company, Year, AmountInMillions).
+        - remaining_repurchase(Company, Year, AmountInMillions).
+        - liquidity_commitment(Company, Year, AmountInMillions).
+        - announcement_year(Company, Event, Year).
         
         Available KB Rules:
-        - profit_margin(DocId, Margin): Calculates margin if both revenue and net_income exist for a doc.
-        - growth_rate(DocOld, DocNew, Rate): Calculates revenue growth between two docs.
+        - profit_margin(Company, Year, Margin)
+        - growth_rate(Company, Y1, Y2, Rate)
+        - op_income_growth(Company, Y1, Y2, Rate)
+        - total_allocated_cost(Company, Year, Total)
+        - var_diff(Company, Y1, Y2, Difference)
+        - higher_metric(C1, C2, Year, MetricType)
         
         Rules for translation:
         1. Output ONLY the raw SWI-Prolog query string. No markdown, no explanations.
-        2. Variables must start with an Uppercase letter (e.g., DocId, X, Margin).
-        3. Atoms (companies, specific years if used as IDs) must be lowercase (e.g., apple, 2023).
-        4. End the query without a period (the system handles it).
+        2. Variables must start with an Uppercase letter (e.g., Company, Year, Result).
+        3. Atoms (companies, categories, event names) must be lowercase (e.g., apple, management_support).
+        4. End the query without a period.
         
         Examples:
-        Q: "What is the profit margin?" -> profit_margin(DocId, Margin)
-        Q: "Did revenue exceed 100000?" -> revenue(DocId, Year, Rev), Rev > 100000
-        Q: "What is apple's 2023 revenue?" -> revenue(apple, 2023, Rev)
+        Q: "What is the profit margin of Apple in 2023?" -> profit_margin(apple, 2023, M)
+        Q: "What was the total allocated cost for JPM in 2011?" -> total_allocated_cost(jpm, 2011, Total)
+        Q: "Compare VaR of PNC between 2012 and 2013" -> var_diff(pnc, 2012, 2013, D)
         
         Question: {question}
         Prolog Query:

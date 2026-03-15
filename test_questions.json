@@ -1,82 +1,82 @@
 [
   {
     "id": 1,
-    "question": "What is the profit margin for the company in 2023?",
+    "question": "What was the total allocated cost for management support, shared services, and benefits for the year ended December 31, 2011?",
     "type": "calculation",
-    "expected_answer_type": "percentage",
+    "expected_answer_type": "currency",
     "difficulty": "medium",
-    "why_prolog_should_win": "Requires extracting Net Income and Revenue, then applying the (Net Income / Revenue) formula. Prolog ensures mathematical correctness where LLMs might hallucinate the ratio."
+    "why_prolog_should_win": "Requires sum of three distinct numerical facts ($32M, $80M, $169M). Prolog's precision prevents the common LLM 'rounding' or 'summation' errors."
   },
   {
     "id": 2,
-    "question": "What was the revenue growth rate between 2022 and 2023?",
-    "type": "calculation",
-    "expected_answer_type": "percentage",
-    "difficulty": "high",
-    "why_prolog_should_win": "Requires fetching revenue for two distinct time periods and applying the growth rate formula. Prolog handles the state across years perfectly."
+    "question": "Was the average value-at-risk (VaR) higher in 2013 or 2012, and by how much?",
+    "type": "comparison",
+    "expected_answer_type": "currency_comparison",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Standard RAG might describe both years; Prolog performs the direct subtraction (3.5M - 3.2M = 0.3M) to give an exact difference."
   },
   {
     "id": 3,
-    "question": "Which company had higher revenue, Microsoft or Google?",
-    "type": "comparison",
-    "expected_answer_type": "entity_name",
+    "question": "Identify the year in which the gross profit margin was the lowest among 2015, 2016, and 2017.",
+    "type": "temporal",
+    "expected_answer_type": "year",
     "difficulty": "medium",
-    "why_prolog_should_win": "Standard RAG might just retrieve both docs; Prolog explicitly compares the two integer values to give a definitive logical answer."
+    "why_prolog_should_win": "Requires sorting multiple years by a specific metric and finding the minimum. Prolog handles numerical ordering perfectly."
   },
   {
     "id": 4,
-    "question": "How does the profit margin of Apple compare to Amazon?",
-    "type": "comparison",
-    "expected_answer_type": "textual_comparison",
+    "question": "After the February 2019 authorization, what was the total maximum dollar value available for share repurchases?",
+    "type": "calculation",
+    "expected_answer_type": "currency",
     "difficulty": "high",
-    "why_prolog_should_win": "This is a 'Compound Reasoning' task. It requires calculating margins for both (Step 1) and then performing a comparative operation (Step 2)."
+    "why_prolog_should_win": "Requires finding the remainder from the 2017 authorization ($175M) and adding the new 2019 authorization ($500M). Tests state-tracking."
   },
   {
     "id": 5,
-    "question": "What was the total reported revenue for the fiscal year?",
-    "type": "simple_lookup",
-    "expected_answer_type": "currency",
-    "difficulty": "simple",
-    "why_prolog_should_win": "Prolog-RAG acts as a verified data extractor, ensuring the number returned is tagged to the correct metric in the knowledge base."
+    "question": "How did the Technical Solutions segment's operating income change year-over-year from 2016 to 2018?",
+    "type": "calculation",
+    "expected_answer_type": "textual_analysis",
+    "difficulty": "high",
+    "why_prolog_should_win": "Tests multi-hop retrieval over a 3-year timeline (8M to 21M to 32M) and trend analysis."
   },
   {
     "id": 6,
-    "question": "What is the company's stated mission or vision in this report?",
+    "question": "List all companies in the peer group associated with thestock performance graph starting December 31, 2008.",
     "type": "simple_lookup",
-    "expected_answer_type": "string",
+    "expected_answer_type": "list",
     "difficulty": "simple",
-    "why_prolog_should_win": "This tests the Query Router's ability to stay in VECTOR mode for semantic, non-numerical questions."
+    "why_prolog_should_win": "Tests extraction of entities from a complex text list (CBS, Scripps, Time Warner, etc.)."
   },
   {
     "id": 7,
-    "question": "When and where did the most recent earnings call take place?",
-    "type": "simple_lookup",
-    "expected_answer_type": "datetime_location",
-    "difficulty": "simple",
-    "why_prolog_should_win": "Assesses the system's ability to extract specific metadata entities that form the 'Context' for financial reasoning."
+    "question": "What was the percentage increase in Technical Solutions operating income from 2017 to 2018?",
+    "type": "calculation",
+    "expected_answer_type": "percentage",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Requires calculating (32-21)/21. Logic over numbers is a core Prolog strength."
   },
   {
     "id": 8,
-    "question": "Which companies or segments reported revenue greater than $100 billion?",
-    "type": "constraint",
-    "expected_answer_type": "list_of_entities",
-    "difficulty": "medium",
-    "why_prolog_should_win": "Uses high-pass filtering (Revenue > 100B). Prolog can iterate through all facts and return only those satisfying the logical constraint."
+    "question": "On what date was the company's stock repurchase program first announced?",
+    "type": "simple_lookup",
+    "expected_answer_type": "date",
+    "difficulty": "simple",
+    "why_prolog_should_win": "Direct metadata extraction. Ensures the date is linked to the 'announcement' fact."
   },
   {
     "id": 9,
-    "question": "List all financial segments where the net income was positive but revenue decreased.",
-    "type": "constraint",
-    "expected_answer_type": "list_of_entities",
-    "difficulty": "high",
-    "why_prolog_should_win": "Requires checking multiple logical conditions simultaneously (NetIncome > 0 AND Revenue_Year_N < Revenue_Year_N-1)."
+    "question": "Compare the SG&A expenses as a percentage of sales between 2016 and 2017.",
+    "type": "comparison",
+    "expected_answer_type": "percentage_comparison",
+    "difficulty": "medium",
+    "why_prolog_should_win": "Extracts 19.1% and 18.9% and performs a logical comparison."
   },
   {
     "id": 10,
-    "question": "In which specific year did the company's revenue first exceed $50 billion?",
-    "type": "temporal",
-    "expected_answer_type": "year",
-    "difficulty": "high",
-    "why_prolog_should_win": "Requires sorting financial facts by time and finding the earliest instance where a numerical threshold was crossed."
+    "question": "What was the liquidity commitment amount for JPM SPEs at December 31, 2003?",
+    "type": "simple_lookup",
+    "expected_answer_type": "currency",
+    "difficulty": "simple",
+    "why_prolog_should_win": "Varies by specific entity types (SPEs). Ensures correct billion-dollar figure is linked."
   }
 ]

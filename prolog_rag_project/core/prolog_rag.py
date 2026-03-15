@@ -61,13 +61,8 @@ class PrologRAG:
             return None
             
         res = results[0]
-        if 'M' in res:
-            return f"Profit margin: {res['M']}%"
-        if 'Rate' in res:
-            return f"Growth rate: {res['Rate']}%"
-        
-        # Generic formatting for other potential fields
-        parts = [f"{k}: {v}" for k, v in res.items() if k not in ['DocId', 'DocOld', 'DocNew']]
+        # Generic formatting for all variables returned by Prolog
+        parts = [f"{k}: {v}" for k, v in res.items()]
         return ", ".join(parts) if parts else "Condition met in Knowledge Base."
 
     def _generate_with_llm(self, question, context, reasoning_result=None):

@@ -1,361 +1,361 @@
 [
     {
         "id": 1,
-        "question": "What is the profit margin for the company in 2023?",
+        "question": "What was the total allocated cost for management support, shared services, and benefits for the year ended December 31, 2011?",
         "scores": {
             "Naive": {
-                "accuracy_score": 0,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly stated that the provided context does not contain information about the company's profit margin for 2023, and provided alternative solutions to find the information."
+                "reason": "The system correctly added the costs mentioned in the context to arrive at the total allocated cost."
             },
             "Graph": {
                 "accuracy_score": 0,
                 "hallucination": "Yes",
                 "logic_score": 0,
-                "reason": "The system does not provide a numerical answer, but rather suggests possible steps to find the relevant information. It also does not contain any facts not present in the context, but it does not follow the correct calculation (if applicable) as it does not provide a numerical answer."
+                "reason": "The system answer does not provide any numerical data, making it impossible to assess accuracy or logic. It also contains a fact not present in the context, which is the inability to find the information."
             },
             "CRAG": {
-                "accuracy_score": 0,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly stated that it does not have enough information to determine the company's profit margin for 2023, and it provided a clear explanation of what information is needed to make the calculation."
+                "reason": "The system correctly added the costs mentioned in the verified context to find the total allocated cost."
             },
             "Contextual": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system accurately states that there is no information provided about the company's 2023 financial results and correctly concludes that it's not possible to calculate the profit margin for 2023."
+                "reason": "The system provided accurate numerical data and followed the correct calculation to arrive at the total allocated cost."
             },
             "Prolog-RAG": {
-                "accuracy_score": 2,
-                "hallucination": "Yes",
-                "logic_score": 3,
-                "reason": "The system provided some information about the company's profit margin, but it was for 2007 or earlier. The system also inferred that the company's profit margin decreased in 2007, but this information is not explicitly stated in the context. The system also hallucinated by mentioning the company's profit margin for 2007 without providing any numerical data."
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided accurate numerical data and followed the correct calculation to arrive at the total allocated cost."
             }
         }
     },
     {
         "id": 2,
-        "question": "What was the revenue growth rate between 2022 and 2023?",
+        "question": "Was the average value-at-risk (VaR) higher in 2013 or 2012, and by how much?",
         "scores": {
             "Naive": {
-                "accuracy_score": 0,
+                "accuracy_score": 2,
                 "hallucination": "Yes",
-                "logic_score": 0,
-                "reason": "The system provided an answer that was not based on the context, as the context only included information up to 2016, but the question was about the revenue growth rate between 2022 and 2023, which is not present in the context."
+                "logic_score": 4,
+                "reason": "The system made an assumption about the average VaR for 2013, which is not present in the context. It also inferred that the average VaR for 2012 was likely higher than 2010, but this is not directly relevant to the comparison between 2012 and 2013."
             },
             "Graph": {
-                "accuracy_score": 5,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system accurately stated that the context does not contain information about the revenue growth rate between 2022 and 2023, and correctly followed the correct logic to conclude that the answer is unknown."
-            },
-            "CRAG": {
                 "accuracy_score": 0,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly states that it cannot calculate the revenue growth rate due to lack of data, and provides possible sources for the necessary information."
+                "reason": "The system correctly stated that it does not have enough information to answer the question, and it did not provide any incorrect or hallucinated data."
+            },
+            "CRAG": {
+                "accuracy_score": 2,
+                "hallucination": "No",
+                "logic_score": 4,
+                "reason": "The system correctly identified that the average VaR for 2013 is unknown and that the VaR was exceeded on 3 out of 261 days in 2012. However, it did not provide a numerical comparison between the two years, which is the main goal of the query."
             },
             "Contextual": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly stated that there is no information provided about the revenue growth rate between 2022 and 2023, which is accurate based on the context."
+                "reason": "The system correctly identified the available data and performed a valid comparison between the average VaR for 2009 and 2010."
             },
             "Prolog-RAG": {
-                "accuracy_score": 5,
+                "accuracy_score": 2,
                 "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system correctly identified the absence of information about the revenue growth rate between 2022 and 2023 in the provided context."
+                "logic_score": 4,
+                "reason": "The system correctly identified that the average VaR for 2012 was higher than 2010, but failed to provide a direct comparison with 2013 due to lack of information. However, the logic used to infer the difference between 2012 and 2010 is sound."
             }
         }
     },
     {
         "id": 3,
-        "question": "Which company had higher revenue, Microsoft or Google?",
+        "question": "Identify the year in which the gross profit margin was the lowest among 2015, 2016, and 2017.",
         "scores": {
             "Naive": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system provided correct numerical data and followed the correct logic to compare the revenues of Microsoft and Google in 2007."
+                "reason": "The system correctly identified that the context does not contain information about the gross profit margin for the years 2015, 2016, and 2017, and therefore could not provide an accurate answer."
             },
             "Graph": {
                 "accuracy_score": 0,
                 "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system correctly identified the lack of information about Microsoft and Google's revenue in the provided context, and did not attempt to provide an answer based on unrelated information."
+                "logic_score": 0,
+                "reason": "The system correctly states that it cannot determine the year with the lowest gross profit margin due to lack of data, but does not provide a numerical score or calculation."
             },
             "CRAG": {
-                "accuracy_score": 4,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system provided accurate numerical data based on publicly available information, and the logic used to compare the revenue of Microsoft and Google was correct. However, it did not directly answer the question based on the provided context, which is a minor deduction from the accuracy score."
-            },
-            "Contextual": {
-                "accuracy_score": 4,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system correctly used publicly available information to answer the question and made a logical comparison between Microsoft's revenue for 2015 and Google's revenue for 2007. However, it did not directly compare Microsoft's revenue for 2013-2015 with Google's revenue for the same period due to lack of information, which slightly affects the accuracy score."
-            },
-            "Prolog-RAG": {
                 "accuracy_score": 0,
                 "hallucination": "Yes",
                 "logic_score": 0,
-                "reason": "The system made an educated guess about the company's name (Cisco Systems) but provided no evidence to support the claim that it was acquired by another company. The answer also failed to address the original question about Microsoft and Google's revenue."
+                "reason": "The system made an incorrect assumption about the context and provided a speculative answer instead of stating that the information is not available."
+            },
+            "Contextual": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system correctly identified the year with the lowest gross profit margin and provided the correct margin value."
+            },
+            "Prolog-RAG": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system correctly identified that the context does not contain information about gross profit margin, and therefore could not provide an accurate answer."
             }
         }
     },
     {
         "id": 4,
-        "question": "How does the profit margin of Apple compare to Amazon?",
+        "question": "After the February 2019 authorization, what was the total maximum dollar value available for share repurchases?",
         "scores": {
             "Naive": {
-                "accuracy_score": 4,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system provided accurate numerical data from Apple's 2020 annual report and Amazon's 2020 annual report. The system correctly stated that the provided context does not contain information about Amazon's profit margin, so it couldn't compare it directly to Apple's profit margin. The system also provided a logical explanation for the difference in profit margins between Apple and Amazon."
-            },
-            "Graph": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system provided accurate numerical data from Apple's and Amazon's 2022 Annual Reports, and correctly stated that the context does not contain information about Apple's or Amazon's profit margins."
+                "reason": "The system accurately calculated the total maximum dollar value available for share repurchases after the February 2019 authorization by adding the remaining value from the previous authorization to the new authorization."
+            },
+            "Graph": {
+                "accuracy_score": 0,
+                "hallucination": "Yes",
+                "logic_score": 0,
+                "reason": "The system answer does not provide any numerical data, and instead suggests looking for additional information. This is not a direct answer to the question and does not follow the correct calculation."
             },
             "CRAG": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly states that the provided context does not contain information about the profit margins of Apple and Amazon, and it does not make any incorrect assumptions or provide unrelated information."
+                "reason": "The system accurately calculated the total maximum dollar value available for share repurchases by adding the remaining value from the January 2017 authorization to the new authorization amount."
             },
             "Contextual": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system provided accurate numerical data from the context and correctly noted that the figures are for 2007, implying that the system did not make any incorrect assumptions or calculations."
+                "reason": "The system accurately calculated the total maximum dollar value available for share repurchases by adding the remaining balance from the previous authorization and the new authorization."
             },
             "Prolog-RAG": {
-                "accuracy_score": 0,
-                "hallucination": "Yes",
-                "logic_score": 0,
-                "reason": "The system incorrectly assumed the context was about a company called 'Segment 2019' and provided unrelated information. It also failed to provide any numerical data or comparison between Apple and Amazon's profit margins."
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system correctly calculated the total maximum dollar value available for share repurchases after the February 2019 authorization, following the correct logic and not introducing any new facts not present in the context."
             }
         }
     },
     {
         "id": 5,
-        "question": "What was the total reported revenue for the fiscal year?",
+        "question": "How did the Technical Solutions segment's operating income change year-over-year from 2016 to 2018?",
         "scores": {
             "Naive": {
-                "accuracy_score": 0,
-                "hallucination": "Yes",
-                "logic_score": 0,
-                "reason": "The system answer does not provide any numerical data, and instead, indicates that the context does not mention the total reported revenue for the fiscal year. This is a correct assessment, but it does not address the question directly."
+                "accuracy_score": 4,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided accurate numerical data and correctly calculated the year-over-year increases. However, it did not explicitly state the year-over-year change from 2016 to 2018, which would have earned a perfect accuracy score."
             },
             "Graph": {
                 "accuracy_score": 0,
-                "hallucination": "Yes",
+                "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system answer does not provide any numerical data, but it does contain facts not present in the context, such as the suggestion to refer to a different section of the annual report."
+                "reason": "The system correctly stated that the provided context does not contain the required information, and provided possible sources to find the information. The system's response is accurate and logically sound."
             },
             "CRAG": {
-                "accuracy_score": 0,
-                "hallucination": "Yes",
-                "logic_score": 0,
-                "reason": "The system provided a speculative answer based on incomplete context, suggesting possible revenue figures without any actual data to support it."
-            },
-            "Contextual": {
-                "accuracy_score": 2,
-                "hallucination": "No",
-                "logic_score": 4,
-                "reason": "The system provided correct numerical data for the net interest income of 2011, 2012, and 2013. However, it failed to provide the total reported revenue for the fiscal year, which is the main query. The system's logic is mostly correct, but it could have provided a more direct answer or a clear indication of where to find the total reported revenue."
-            },
-            "Prolog-RAG": {
-                "accuracy_score": 0,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly stated that the context does not contain information about the total reported revenue for the fiscal year, and provided a specific reference to the context. However, it did not provide a numerical score or answer, which would have earned it a higher accuracy score."
+                "reason": "The system accurately calculated the year-over-year changes in the Technical Solutions segment's operating income from 2016 to 2017 and from 2017 to 2018, and the numbers match the provided context."
+            },
+            "Contextual": {
+                "accuracy_score": 4,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided accurate numerical data and correctly calculated the year-over-year changes in operating income. However, it did not explicitly state the change from 2016 to 2018, which would have been a more comprehensive answer."
+            },
+            "Prolog-RAG": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system correctly calculated the year-over-year change in operating income from 2016 to 2018, using the provided numbers and following the correct mathematical operation."
             }
         }
     },
     {
         "id": 6,
-        "question": "What is the company's stated mission or vision in this report?",
+        "question": "List all companies in the peer group associated with thestock performance graph starting December 31, 2008.",
         "scores": {
             "Naive": {
-                "accuracy_score": 4,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system accurately identified the company's goals and values from the provided context, and its inferences were consistent with the information given. The system's response did not contain any facts not present in the context, and its logic was sound in drawing conclusions from the available data."
+                "reason": "The system provided a list of 26 companies that match the peer group associated with the stock performance graph starting December 31, 2008, based on the Russell 3000 Auto Parts Index. The list is internally consistent with the query type and does not contain any facts not present in the context."
             },
             "Graph": {
                 "accuracy_score": 2,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system correctly stated that the company's mission or vision was not mentioned in the context. However, it could have provided a more accurate answer by stating that the context does not provide enough information to determine the company's mission or vision."
+                "hallucination": "Yes",
+                "logic_score": 4,
+                "reason": "The system provided a list of possible companies that might be part of the peer group, but it was not directly related to the stock performance graph starting December 31, 2008. The system also suggested possible ways to find the information, which is a good practice, but it did not provide a clear answer to the question."
             },
             "CRAG": {
-                "accuracy_score": 4,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system accurately inferred the company's goals and priorities based on the provided information, and its logic was sound in drawing conclusions from the data."
+                "reason": "The system provided a comprehensive list of companies in the peer group associated with the stock performance graph starting December 31, 2008, and correctly included the mentioned indices as part of the peer group. The list appears to be accurate and consistent with the query type."
             },
             "Contextual": {
                 "accuracy_score": 4,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system accurately states that the company's mission or vision is not explicitly mentioned in the report. It also provides a reasonable inference based on the content related to the MFC 2019 business segment, but does not claim it as fact."
+                "reason": "The system provided accurate numerical data for the peer group associated with the stock performance graph starting December 31, 2008. However, it also provided an additional peer group for Union Pacific Corporation's 2014 financial performance, which seems unrelated to the initial query. The system's logic is sound for the initial query, but it appears to have made an incorrect assumption for the second query."
             },
             "Prolog-RAG": {
-                "accuracy_score": 4,
+                "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system accurately identified the lack of explicit mission or vision statement in the context, and provided a logical and consistent analysis of the company's goals and strategies."
+                "reason": "The system accurately listed all 26 companies in the Automotive Supplier Peer Group associated with the stock performance graph starting December 31, 2008, without introducing any new information not present in the context."
             }
         }
     },
     {
         "id": 7,
-        "question": "When and where did the most recent earnings call take place?",
+        "question": "What was the percentage increase in Technical Solutions operating income from 2017 to 2018?",
         "scores": {
             "Naive": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly identified that the context does not mention the date or location of the most recent earnings call, and provided a logical explanation based on the information available."
+                "reason": "The system correctly applied the percentage increase formula and arrived at the correct answer of 52.38%."
             },
             "Graph": {
                 "accuracy_score": 0,
-                "hallucination": "Yes",
+                "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system did not provide any numerical data, but it did provide a logical explanation for not being able to answer the question. However, it did contain facts not present in the context, specifically the recommendation to check the company's official website or news articles."
+                "reason": "The system correctly stated that it does not have the necessary information to calculate the percentage increase in Technical Solutions operating income from 2017 to 2018, and it did not provide any incorrect or hallucinated information."
             },
             "CRAG": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly identified that the context does not mention the date or location of the most recent earnings call, and provided a logical explanation based on the information available."
+                "reason": "The system correctly calculated the percentage increase in Technical Solutions operating income from 2017 to 2018 using the provided numbers."
             },
             "Contextual": {
-                "accuracy_score": 2,
+                "accuracy_score": 5,
                 "hallucination": "No",
-                "logic_score": 4,
-                "reason": "The system correctly states that there is no information about the most recent earnings call, but it inaccurately infers that the document is discussing financial statements from 2011, 2012, and 2013. This inference is not directly supported by the context. The system's logic is mostly correct, but it could have provided a more accurate response by stating that the information is not available."
+                "logic_score": 5,
+                "reason": "The system correctly calculated the percentage increase in Technical Solutions operating income from 2017 to 2018 using the provided numbers."
             },
             "Prolog-RAG": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly identified that the context does not mention the most recent earnings call, and provided a logical explanation based on the information available."
+                "reason": "The system correctly calculated the percentage increase in Technical Solutions operating income from 2017 to 2018 using the provided context."
             }
         }
     },
     {
         "id": 8,
-        "question": "Which companies or segments reported revenue greater than $100 billion?",
+        "question": "On what date was the company's stock repurchase program first announced?",
         "scores": {
             "Naive": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly identified companies with revenue greater than $100 billion and provided accurate numerical data based on publicly available information."
+                "reason": "The system provided a specific date that matches the query type, and it is internally consistent with the context."
             },
             "Graph": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly states that there is no information about companies or segments reporting revenue greater than $100 billion, and it accurately follows the context of the discussion."
+                "reason": "The system correctly stated that the context does not contain information about a stock repurchase program, and provided a valid explanation for the lack of information."
             },
             "CRAG": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly states that the context does not contain information about specific companies or segments that reported revenue greater than $100 billion, and it does not provide any numerical data that could be incorrect."
+                "reason": "The system provided a specific date that matches the query type, and it is internally consistent with the context."
             },
             "Contextual": {
-                "accuracy_score": 2,
+                "accuracy_score": 5,
                 "hallucination": "No",
-                "logic_score": 3,
-                "reason": "The system failed to provide accurate numerical data for the query. Although it attempted to calculate the company's consolidated net sales in 2008, the calculation is based on incomplete information and may not be accurate. The system did not hallucinate any facts not present in the context, but its logic is flawed due to the incomplete data."
+                "logic_score": 5,
+                "reason": "The system correctly extracted the date from the context, and the date is internally consistent with the query type."
             },
             "Prolog-RAG": {
-                "accuracy_score": 2,
-                "hallucination": "Yes",
-                "logic_score": 1,
-                "reason": "The system incorrectly inferred that the company's consolidated net sales in 2008 were likely greater than $100 billion, despite the provided context not mentioning any company or segment with revenue greater than $100 billion. The system also repeated the same calculation multiple times without providing a clear answer."
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided a specific date that matches the query type, and it is internally consistent with the context."
             }
         }
     },
     {
         "id": 9,
-        "question": "List all financial segments where the net income was positive but revenue decreased.",
-        "scores": {
-            "Naive": {
-                "accuracy_score": 4,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system provided accurate numerical data and logical explanations for each financial segment. However, it did not provide a direct comparison of revenue and net income for operating expenses, which might be considered a minor inaccuracy."
-            },
-            "Graph": {
-                "accuracy_score": 2,
-                "hallucination": "No",
-                "logic_score": 4,
-                "reason": "The system provided information about revenue decreases, but failed to directly answer the question about net income being positive but revenue decreasing. The numerical data appears to be correct based on the context, but the system did not follow the correct calculation to answer the question directly."
-            },
-            "CRAG": {
-                "accuracy_score": 2,
-                "hallucination": "Yes",
-                "logic_score": 4,
-                "reason": "The system incorrectly included 'Trading Securities', 'Level 3 Investments', 'Securities Sold Under Agreements to Repurchase', and 'Long-term Debt' in the list of financial segments with a positive net income but a decrease in revenue. The context only mentions the decrease in these segments, but does not provide information on their net income. The system also incorrectly included 'Operating Expenses' in the list, as the context does not explicitly state that operating expenses decreased."
-            },
-            "Contextual": {
-                "accuracy_score": 2,
-                "hallucination": "Yes",
-                "logic_score": 4,
-                "reason": "The system provided some accurate information, but also made assumptions about the net income in some cases. For example, in the Engineered Products and Solutions segment (2014 vs. 2013), the system stated that net income was not explicitly mentioned, but then mentioned an increase in Adjusted Operating Income (ATOI). This is a hallucination. Additionally, the system did not provide a clear answer to the question, as it only mentioned segments where revenue decreased, but not necessarily where net income was positive."
-            },
-            "Prolog-RAG": {
-                "accuracy_score": 4,
-                "hallucination": "No",
-                "logic_score": 5,
-                "reason": "The system provided accurate numerical data and logical explanations for each segment. However, it did not provide a complete answer due to lack of information about revenue and net income for operating expenses and other segments."
-            }
-        }
-    },
-    {
-        "id": 10,
-        "question": "In which specific year did the company's revenue first exceed $50 billion?",
+        "question": "Compare the SG&A expenses as a percentage of sales between 2016 and 2017.",
         "scores": {
             "Naive": {
                 "accuracy_score": 5,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly stated that the context does not provide information about the company's revenue, and therefore, it cannot determine the specific year when the revenue first exceeded $50 billion."
+                "reason": "The system accurately calculated the SG&A expenses as a percentage of sales for both 2016 and 2017, and correctly determined that there was a slight reduction in SG&A expenses as a percentage of sales over this period."
             },
             "Graph": {
                 "accuracy_score": 0,
                 "hallucination": "Yes",
                 "logic_score": 0,
-                "reason": "The system failed to provide a specific year when the company's revenue exceeded $50 billion, despite mentioning other years. It also failed to follow the correct calculation, as it did not provide a numerical answer."
+                "reason": "The system answer does not provide any numerical data, and instead, guides the user on how to find the required information. This is not a direct answer to the query."
             },
             "CRAG": {
-                "accuracy_score": 0,
-                "hallucination": "Yes",
-                "logic_score": 0,
-                "reason": "The system provided a year (2016) which is not directly related to the question about revenue exceeding $50 billion. It also failed to provide any relevant information about the year in question."
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system accurately calculated the percentage decrease in SG&A expenses as a percentage of sales between 2016 and 2017, and did not introduce any new facts not present in the context."
             },
             "Contextual": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system accurately extracted the numerical data from the context and correctly calculated the percentage change."
+            },
+            "Prolog-RAG": {
                 "accuracy_score": 4,
                 "hallucination": "No",
                 "logic_score": 5,
-                "reason": "The system correctly inferred the company and provided a publicly available data point to support its answer, but it did not directly extract the information from the context. However, the answer is accurate and logically sound."
+                "reason": "The system provided the correct numerical data and followed the correct calculation to compare SG&A expenses as a percentage of sales between 2016 and 2017. However, the accuracy score is not a perfect 5 because the context does not provide the exact numbers, but the system's answer is consistent with the query type."
+            }
+        }
+    },
+    {
+        "id": 10,
+        "question": "What was the liquidity commitment amount for JPM SPEs at December 31, 2003?",
+        "scores": {
+            "Naive": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided a specific numerical value that matches the query type, and it is internally consistent with the context."
+            },
+            "Graph": {
+                "accuracy_score": 0,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system correctly stated that it could not find any information about JPM SPEs or their liquidity commitment amount at December 31, 2003, which is accurate given the lack of context."
+            },
+            "CRAG": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided a specific numerical value that matches the query type, and it is consistent with the context. The calculation appears to be correct, and there is no indication of hallucination."
+            },
+            "Contextual": {
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided a specific numerical value that matches the query type, and it is internally consistent with the context."
             },
             "Prolog-RAG": {
-                "accuracy_score": 1,
-                "hallucination": "Yes",
-                "logic_score": 2,
-                "reason": "The system's answer is not supported by the provided context, and it is based on an assumption. The revenue in 2006 was $1.4 billion, which is less than $50 billion. The system's answer of 2008 is not accurate and is a hallucination."
+                "accuracy_score": 5,
+                "hallucination": "No",
+                "logic_score": 5,
+                "reason": "The system provided a specific numerical value that matches the query type, and it is consistent with the context. The calculation appears to be correct, and there is no indication of hallucination."
             }
         }
     }

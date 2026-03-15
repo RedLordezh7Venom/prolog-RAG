@@ -22,14 +22,23 @@ class FinancialFactExtractor:
         Use the following Prolog predicate formats:
         1. revenue(Company, Year, AmountInMillions).
         2. net_income(Company, Year, AmountInMillions).
-        3. profit_margin_target(Company, Year, Percentage).
-        4. growth_target(Company, Year, Percentage).
+        3. operating_income(Company, Year, AmountInMillions).
+        4. allocated_cost(Company, Year, Category, AmountInMillions).
+        5. value_at_risk(Company, Year, AverageAmountInMillions).
+        6. gross_margin(Company, Year, Percentage).
+        7. sga_percentage(Company, Year, Percentage).
+        8. backlog(Company, Year, AmountInMillions).
+        9. authorized_repurchase(Company, Year, AmountInMillions).
+        10. remaining_repurchase(Company, Year, AmountInMillions).
+        11. liquidity_commitment(Company, Year, AmountInMillions).
+        12. announcement_year(Company, Event, Year).
         
         Guidelines:
-        - Company: Convert to a lowercase, single_word atom (e.g., 'apple_inc' -> apple).
+        - Company: Convert to a lowercase, single_word atom (e.g., 'Apple Inc' -> apple).
         - Year: Extract a 4-digit integer. If missing, use 9999.
-        - AmountInMillions: ALWAYS convert dollar amounts to an integer representing MILLIONS (e.g., "$394 billion" -> 394000).
+        - AmountInMillions: ALWAYS convert dollar amounts to an integer representing MILLIONS (e.g., "$394 billion" -> 394000, "$32 million" -> 32).
         - Percentage: Extract as a float (e.g., "24.6%" -> 24.6).
+        - Category/Event: Convert to a lowercase, snake_case atom (e.g., "Management Support" -> management_support).
         """
 
     def extract_llm_facts(self, text, doc_id=None):

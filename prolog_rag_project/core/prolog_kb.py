@@ -18,18 +18,24 @@ class PrologKnowledgeBase:
             # Base rules (handle the new 3-argument schema: revenue(Company, Year, Amount))
             
             # Profit margin calculation: profit_margin(Company, Year, Margin)
-            "profit_margin(Company, Year, Margin) :- revenue(Company, Year, Rev), net_income(Company, Year, NI), Rev > 0, Margin is (NI / Rev) * 100",
+            "profit_margin(Company, Year, Margin) :- (revenue(Company, Year, Rev) ; operating_income(Company, Year, Rev)), (net_income(Company, Year, NI); operating_income(Company, Year, NI)), Rev > 0, Margin is (NI / Rev) * 100",
             
-            # Revenue comparison (same year): higher_revenue(Comp1, Comp2, Year)
-            "higher_revenue(Comp1, Comp2, Year) :- revenue(Comp1, Year, Rev1), revenue(Comp2, Year, Rev2), Rev1 > Rev2",
+            # Revenue/Income comparison (same year)
+            "higher_metric(Comp1, Comp2, Year, MetricType) :- call(MetricType, Comp1, Year, V1), call(MetricType, Comp2, Year, V2), V1 > V2",
             
             # Growth rate calculation: growth_rate(Company, YearOld, YearNew, Rate)
             "growth_rate(Company, YearOld, YearNew, Rate) :- revenue(Company, YearOld, RevOld), revenue(Company, YearNew, RevNew), YearNew > YearOld, RevOld > 0, Rate is ((RevNew - RevOld) / RevOld) * 100",
             
-            # Constraint filtering: meets_criteria(Company, Year, MinRevenue, MinMargin)
-            "meets_criteria(Company, Year, MinRevenue, MinMargin) :- revenue(Company, Year, Rev), Rev >= MinRevenue, profit_margin(Company, Year, Margin), Margin >= MinMargin",
-            
-            # Temporal: first time condition met
+            # Operating income growth
+            "op_income_growth(Company, YearOld, YearNew, Rate) :- operating_income(Company, YearOld, VOld), operating_income(Company, YearNew, VNew), YearNew > YearOld, VOld > 0, Rate is ((VNew - VOld) / VOld) * 100",
+
+            # Total Allocated Cost calculation
+            "total_allocated_cost(Company, Year, Total) :- findall(Amt, allocated_cost(Company, Year, _, Amt), Amts), sum_list(Amts, Total)",
+
+            # VaR Comparison
+            "var_diff(Company, Year1, Year2, Diff) :- value_at_risk(Company, Year1, V1), value_at_risk(Company, Year2, V2), Diff is V1 - V2",
+
+            # First time condition met
             "first_exceeds(Company, Threshold, Year) :- revenue(Company, Year, Rev), Rev >= Threshold, \+ (revenue(Company, YearBefore, RevBefore), YearBefore < Year, RevBefore >= Threshold)"
         ]
         for rule in rules:
