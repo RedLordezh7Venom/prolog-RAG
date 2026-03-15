@@ -14,7 +14,7 @@ class RAGEvaluator:
     """
     def __init__(self):
         self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.model = "llama-3.3-70b-versatile"
+        self.model = "llama-3.1-8b-instant"
 
     def grade_answer(self, question, answer, context):
         prompt = f"""
