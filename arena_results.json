@@ -5,29 +5,317 @@
         "type": "calculation",
         "answers": {
             "Naive": {
-                "answer": "The provided context does not contain information about the company's profit margin for the year 2023. The context appears to be a portion of a company's annual report or financial statement, but it primarily discusses the company's performance in the years 2006, 2007, 2008, 2011, 2012, and 2013. There is no mention of the year 2023 or the company's profit margin for that year.",
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99986, Requested 1412. Please try again in 20m7.871999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
                 "method": "naive_rag",
-                "time_sec": 0.73
+                "time_sec": 0.25
             },
             "Graph": {
-                "answer": "The provided context does not contain information about the company's profit margin for 2023. The text appears to be a collection of financial data and discussions from various years, including 2007, 2008, 2009, 2012, 2017, 2018, and 2019, but it does not mention the year 2023 or provide any information about the company's profit margin for that year. Therefore, it is not possible to determine the profit margin for the company in 2023 based on the provided context.",
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99985, Requested 454. Please try again in 6m19.296s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
                 "method": "graph_rag",
-                "time_sec": 0.5
+                "time_sec": 0.12
             },
             "CRAG": {
-                "answer": "The provided context does not contain information about the company's profit margin for 2023. The context appears to be from 2013 and discusses net interest income, operating expenses, and stock performance for previous years, but it does not provide any data or information for the year 2023. Therefore, it is not possible to determine the profit margin for the company in 2023 based on the provided context.",
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99985, Requested 1417. Please try again in 20m11.328s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
                 "method": "corrective_rag",
-                "time_sec": 1.2
+                "time_sec": 0.37
             },
             "Contextual": {
-                "answer": "The provided context does not contain information about the company's profit margin for the year 2023. The documents appear to discuss financial results for various years, including 2011, 2010, 2007, 2006, 2016, and 2015, but do not provide data for the year 2023.\n\nTo determine the profit margin for 2023, I would need access to the company's financial statements or reports for that specific year, which are not provided in the given context. Therefore, I cannot accurately calculate or provide the profit margin for the company in 2023 based on the available information.",
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99985, Requested 2047. Please try again in 29m15.648s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
                 "method": "contextual_rag",
-                "time_sec": 0.68
+                "time_sec": 0.13
             },
             "Prolog-RAG": {
-                "answer": "The provided context does not mention the profit margin for the company in 2023. The context appears to be a financial report from a previous year, discussing various financial metrics such as net interest income, operating expenses, and net sales for different years (2006, 2007, 2008, 2011, 2012, and 2013), but it does not provide information about the company's financial performance in 2023. Therefore, it is not possible to determine the profit margin for the company in 2023 based on the provided context.",
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99984, Requested 1424. Please try again in 20m16.512s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
                 "method": "PROLOG",
-                "time_sec": 1.8
+                "time_sec": 0.46
+            }
+        }
+    },
+    {
+        "id": 2,
+        "question": "What was the revenue growth rate between 2022 and 2023?",
+        "type": "calculation",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99984, Requested 1178. Please try again in 16m43.968s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.08
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99984, Requested 457. Please try again in 6m21.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99984, Requested 1184. Please try again in 16m49.151999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99984, Requested 1997. Please try again in 28m31.584s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.08
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99983, Requested 1190. Please try again in 16m53.472s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.37
+            }
+        }
+    },
+    {
+        "id": 3,
+        "question": "Which company had higher revenue, Microsoft or Google?",
+        "type": "comparison",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99983, Requested 1109. Please try again in 15m43.488s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99983, Requested 452. Please try again in 6m15.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99983, Requested 1114. Please try again in 15m47.808s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99983, Requested 1340. Please try again in 19m3.072s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.09
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99982, Requested 1121. Please try again in 15m52.992s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.39
+            }
+        }
+    },
+    {
+        "id": 4,
+        "question": "How does the profit margin of Apple compare to Amazon?",
+        "type": "comparison",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99982, Requested 1302. Please try again in 18m29.376s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99982, Requested 450. Please try again in 6m13.248s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99982, Requested 1307. Please try again in 18m33.696s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99982, Requested 1819. Please try again in 25m56.064s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.09
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99981, Requested 1314. Please try again in 18m38.88s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.37
+            }
+        }
+    },
+    {
+        "id": 5,
+        "question": "What was the total reported revenue for the fiscal year?",
+        "type": "simple_lookup",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99981, Requested 175. Please try again in 2m14.783999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99981, Requested 455. Please try again in 6m16.704s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.07
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99981, Requested 180. Please try again in 2m19.104s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99980, Requested 1155. Please try again in 16m20.64s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.09
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99980, Requested 187. Please try again in 2m24.288s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.39
+            }
+        }
+    },
+    {
+        "id": 6,
+        "question": "What is the company's stated mission or vision in this report?",
+        "type": "simple_lookup",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99980, Requested 773. Please try again in 10m50.592s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99980, Requested 454. Please try again in 6m14.976s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 777. Please try again in 10m53.184s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 774. Please try again in 10m50.592s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.08
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 785. Please try again in 11m0.096s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "VECTOR",
+                "time_sec": 0.1
+            }
+        }
+    },
+    {
+        "id": 7,
+        "question": "When and where did the most recent earnings call take place?",
+        "type": "simple_lookup",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 424. Please try again in 5m48.191999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 451. Please try again in 6m11.52s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.07
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 429. Please try again in 5m52.512s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.39
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99979, Requested 1317. Please try again in 18m39.744s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.08
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99978, Requested 436. Please try again in 5m57.696s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "VECTOR",
+                "time_sec": 0.1
+            }
+        }
+    },
+    {
+        "id": 8,
+        "question": "Which companies or segments reported revenue greater than $100 billion?",
+        "type": "constraint",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99978, Requested 1039. Please try again in 14m38.688s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.07
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99978, Requested 453. Please try again in 6m12.383999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99978, Requested 1044. Please try again in 14m43.008s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.35
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99978, Requested 2429. Please try again in 34m39.648s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.08
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99977, Requested 1051. Please try again in 14m48.191999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.34
+            }
+        }
+    },
+    {
+        "id": 9,
+        "question": "List all financial segments where the net income was positive but revenue decreased.",
+        "type": "constraint",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99977, Requested 1109. Please try again in 15m38.304s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.12
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99977, Requested 454. Please try again in 6m12.383999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.06
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99977, Requested 1114. Please try again in 15m42.623999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.34
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99977, Requested 1559. Please try again in 22m7.104s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.09
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99976, Requested 1121. Please try again in 15m47.808s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.41
+            }
+        }
+    },
+    {
+        "id": 10,
+        "question": "In which specific year did the company's revenue first exceed $50 billion?",
+        "type": "temporal",
+        "answers": {
+            "Naive": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99976, Requested 402. Please try again in 5m26.592s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "naive_rag",
+                "time_sec": 0.22
+            },
+            "Graph": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99976, Requested 456. Please try again in 6m13.248s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "graph_rag",
+                "time_sec": 0.16
+            },
+            "CRAG": {
+                "answer": "Error during generation: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99975, Requested 408. Please try again in 5m30.912s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "corrective_rag",
+                "time_sec": 0.54
+            },
+            "Contextual": {
+                "answer": "Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99975, Requested 1066. Please try again in 14m59.424s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "contextual_rag",
+                "time_sec": 0.09
+            },
+            "Prolog-RAG": {
+                "answer": "Error generating answer: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01j5znnfnxen8s5w42yvh0cag4` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99974, Requested 414. Please try again in 5m35.232s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+                "method": "PROLOG",
+                "time_sec": 0.45
             }
         }
     }

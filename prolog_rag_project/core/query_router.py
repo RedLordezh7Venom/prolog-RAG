@@ -24,7 +24,7 @@ class QueryRouter:
 
     def __init__(self):
         self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.model = "llama-3.3-70b-versatile"
+        self.model = "llama-3.1-8b-instant"
         
         self.translation_prompt = """
         You are a Natural Language to Prolog translator.

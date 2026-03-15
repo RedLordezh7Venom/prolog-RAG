@@ -90,7 +90,8 @@ class RACArena:
                 q_results["answers"][model_name] = {
                     "answer": answer,
                     "method": method,
-                    "time_sec": round(exec_time, 2)
+                    "time_sec": round(exec_time, 2),
+                    "context": res.get("source_docs", []) if isinstance(res, dict) else []
                 }
                 
                 # Print output

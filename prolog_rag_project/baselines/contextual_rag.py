@@ -20,7 +20,7 @@ class ContextualRAG:
         self.encoder = SentenceTransformer('all-MiniLM-L6-v2')
         self.chroma_client = chromadb.PersistentClient(path='./chroma_db')
         self.llm = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.model = "llama-3.3-70b-versatile"
+        self.model = "llama-3.1-8b-instant"
         
         try:
             # Use the pre-indexed contextual collection
