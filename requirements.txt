@@ -12,3 +12,4 @@ matplotlib
 seaborn
 python-dotenv
 rank_bm25
+plotly
