@@ -12,6 +12,7 @@ dependencies = [
     "matplotlib>=3.10.8",
     "networkx>=3.6.1",
     "pandas>=2.3.3",
+    "plotly>=6.6.0",
     "pyswip>=0.3.3",
     "pytest>=9.0.2",
     "rank-bm25>=0.2.2",
