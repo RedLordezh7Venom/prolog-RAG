@@ -14,6 +14,18 @@ class PrologKnowledgeBase:
 
     def _load_rules(self):
         """Initialize standard financial reasoning rules."""
+        # Ensure predicates are declared as dynamic to allow runtime updates and prevent existence errors
+        # Using comma-separated dynamic declarations for efficiency
+        try:
+            list(self.prolog.query("dynamic([revenue/3, operating_income/3, net_income/3, cost_of_sales/3, allocated_cost/4])"))
+            
+            # Clear specific rules to avoid duplicates if re-initialized in the same process
+            list(self.prolog.query("retractall(profit_margin(_, _, _))"))
+            list(self.prolog.query("retractall(growth_rate(_, _, _, _))"))
+            list(self.prolog.query("retractall(op_income_growth(_, _, _, _))"))
+        except:
+            pass # Pyswip can be temperamental with setup queries
+
         rules = [
             # Base rules (handle the new 3-argument schema: revenue(Company, Year, Amount))
             
