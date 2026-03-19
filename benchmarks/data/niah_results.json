@@ -1,0 +1,322 @@
+[
+  {
+    "context_size": 10,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 357.45.",
+    "expected": "357.45",
+    "time_sec": 0.81
+  },
+  {
+    "context_size": 10,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 916.65.",
+    "expected": "916.65",
+    "time_sec": 0.27
+  },
+  {
+    "context_size": 10,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 223.49.",
+    "expected": "223.49",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 10,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 616.93.",
+    "expected": "616.93",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 10,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 457.95.",
+    "expected": "457.95",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 50,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 426.94.",
+    "expected": "426.94",
+    "time_sec": 0.5
+  },
+  {
+    "context_size": 50,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 370.32.",
+    "expected": "370.32",
+    "time_sec": 0.46
+  },
+  {
+    "context_size": 50,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 174.40.",
+    "expected": "174.40",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 50,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 125.15.",
+    "expected": "125.15",
+    "time_sec": 0.38
+  },
+  {
+    "context_size": 50,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 264.45.",
+    "expected": "264.45",
+    "time_sec": 0.36
+  },
+  {
+    "context_size": 100,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 480.55.",
+    "expected": "480.55",
+    "time_sec": 0.35
+  },
+  {
+    "context_size": 100,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 647.26.",
+    "expected": "647.26",
+    "time_sec": 0.39
+  },
+  {
+    "context_size": 100,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 790.34.",
+    "expected": "790.34",
+    "time_sec": 0.43
+  },
+  {
+    "context_size": 100,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 254.49.",
+    "expected": "254.49",
+    "time_sec": 0.38
+  },
+  {
+    "context_size": 100,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 237.71.",
+    "expected": "237.71",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 200,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 477.75.",
+    "expected": "477.75",
+    "time_sec": 0.37
+  },
+  {
+    "context_size": 200,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 437.56.",
+    "expected": "437.56",
+    "time_sec": 0.33
+  },
+  {
+    "context_size": 200,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 769.32.",
+    "expected": "769.32",
+    "time_sec": 0.35
+  },
+  {
+    "context_size": 200,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 153.90.",
+    "expected": "153.90",
+    "time_sec": 0.76
+  },
+  {
+    "context_size": 200,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 427.18.",
+    "expected": "427.18",
+    "time_sec": 0.74
+  },
+  {
+    "context_size": 500,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 266.68.",
+    "expected": "266.68",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 500,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 759.45.",
+    "expected": "759.45",
+    "time_sec": 0.39
+  },
+  {
+    "context_size": 500,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 489.27.",
+    "expected": "489.27",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 500,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 657.82.",
+    "expected": "657.82",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 500,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 817.34.",
+    "expected": "817.34",
+    "time_sec": 0.44
+  },
+  {
+    "context_size": 1000,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 509.72.",
+    "expected": "509.72",
+    "time_sec": 0.3
+  },
+  {
+    "context_size": 1000,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 256.33.",
+    "expected": "256.33",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 1000,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 323.75.",
+    "expected": "323.75",
+    "time_sec": 0.36
+  },
+  {
+    "context_size": 1000,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 523.94.",
+    "expected": "523.94",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 1000,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 786.66.",
+    "expected": "786.66",
+    "time_sec": 0.37
+  },
+  {
+    "context_size": 2000,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 251.65.",
+    "expected": "251.65",
+    "time_sec": 0.37
+  },
+  {
+    "context_size": 2000,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 240.33.",
+    "expected": "240.33",
+    "time_sec": 0.34
+  },
+  {
+    "context_size": 2000,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 160.19.",
+    "expected": "160.19",
+    "time_sec": 0.46
+  },
+  {
+    "context_size": 2000,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 752.60.",
+    "expected": "752.60",
+    "time_sec": 0.35
+  },
+  {
+    "context_size": 2000,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 647.44.",
+    "expected": "647.44",
+    "time_sec": 0.31
+  },
+  {
+    "context_size": 5000,
+    "depth_percent": 0,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 402.68.",
+    "expected": "402.68",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 5000,
+    "depth_percent": 25,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 312.93.",
+    "expected": "312.93",
+    "time_sec": 0.28
+  },
+  {
+    "context_size": 5000,
+    "depth_percent": 50,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 510.38.",
+    "expected": "510.38",
+    "time_sec": 0.37
+  },
+  {
+    "context_size": 5000,
+    "depth_percent": 75,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 706.96.",
+    "expected": "706.96",
+    "time_sec": 0.32
+  },
+  {
+    "context_size": 5000,
+    "depth_percent": 100,
+    "success": true,
+    "answer": "The special project code for internal audit alpha is 591.84.",
+    "expected": "591.84",
+    "time_sec": 0.36
+  }
+]
