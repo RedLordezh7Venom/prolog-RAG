@@ -45,6 +45,59 @@ Prolog-RAG solves these issues by offloading **Reasoning** from the LLM to a **S
 
 ---
 
+## 🏗️ System Architecture
+
+Prolog-RAG uses a hybrid routing mechanism to ensure high precision for structured queries while maintaining the flexibility of semantic search.
+
+```text
+       ┌───────────────┐
+       │   User Query  │
+       └───────┬───────┘
+               ▼
+       ┌───────────────┐
+       │ Query Router  │ (LLM-Based Decision Entry)
+       └───────┬───────┘
+               │
+      ┌────────┴────────┐
+      ▼ (Arithmetic)    ▼ (Semantic)
+┌───────────────┐   ┌───────────────┐
+│  Prolog Path  │   │  Vector Path  │
+├───────────────┤   ├───────────────┤
+│ Fact Extract  │   │ Chroma Search │
+│ Logic Engine  │   │ LLM Synthesis │
+└────────┬───────┘   └───────┬───────┘
+         │                   │
+         └────────┬──────────┘
+                  ▼
+          ┌───────────────┐
+          │  Final Answer │ (With Proof Trace if Prolog)
+          └───────────────┘
+```
+
+---
+
+## 🔍 Example: The "Audit Proof" Difference
+
+**Query**: *"What was the gross profit margin for the company in 2017?"*
+
+### 🟢 Prolog-RAG (Reasoning Path)
+**Answer**: "The gross profit margin for 2017 was 18.91%."  
+**Verification Trace**:
+```prolog
+1. [Extract] revenue(company, 2017, 3314.0).
+2. [Extract] cost_of_sales(company, 2017, 2687.0).
+3. [Rule]    gross_profit(C, Y, GP) :- revenue(C, Y, R), cost(C, Y, S), GP is R - S.
+4. [Rule]    margin(C, Y, M) :- gross_profit(C, Y, G), revenue(C, Y, R), M is (G/R)*100.
+5. [Execute] M is ((3314 - 2687) / 3314) * 100 = 18.9197...
+```
+
+### 🔴 Traditional RAG (Semantic Path)
+**Answer**: "The company reported a strong gross margin in 2017, approximately 19% based on the consolidated statements."  
+**Verification Trace**:
+> ❌ **None.** Source of the "19%" figure is opaque and subject to LLM rounding/estimation.
+
+---
+
 ## ⚡ Quick Start
 
 Get your Prolog-RAG environment running in minutes:
