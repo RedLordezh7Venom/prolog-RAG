@@ -91,6 +91,53 @@ class RAGEvaluator:
             
         return final_scores
 
+    def generate_report(self, arena_results_path="arena_results.json"):
+        """
+        Generates a summary report of performance by difficulty and query times.
+        """
+        with open(arena_results_path, 'r') as f:
+            data = json.load(f)
+
+        # 1. Grouping by difficulty
+        diff_stats = {}
+        # 2. Track query times
+        times = {}
+        
+        for q in data:
+            difficulty = q.get('difficulty', 'unknown')
+            if difficulty not in diff_stats:
+                diff_stats[difficulty] = {"total": 0, "prolog_with_proof": 0}
+            
+            diff_stats[difficulty]["total"] += 1
+            
+            # Check if Prolog-RAG has proof
+            if "Prolog-RAG" in q["answers"]:
+                if q["answers"]["Prolog-RAG"].get("has_proof") or q["answers"]["Prolog-RAG"].get("method") == "PROLOG":
+                    diff_stats[difficulty]["prolog_with_proof"] += 1
+
+            # Individual system times
+            for model_name, ans in q["answers"].items():
+                if model_name not in times:
+                    times[model_name] = []
+                times[model_name].append(ans.get("time_sec", 0))
+
+        # 3. Print Summary Table
+        print(colored("\n" + "="*50, "cyan"))
+        print(colored(f"{'DIFFICULTY':<15} | {'TOTAL':<10} | {'PROLOG PROOF RATE':<20}", "cyan", attrs=["bold"]))
+        print("-" * 50)
+        
+        for diff, stats in diff_stats.items():
+            rate = (stats["prolog_with_proof"] / stats["total"]) * 100
+            print(f"{diff.upper():<15} | {stats['total']:<10} | {rate:>18.1f}%")
+
+        # 4. Print Avg Query Times
+        print(colored("\nAVERAGE QUERY TIMES", "cyan", attrs=["bold"]))
+        print("-" * 50)
+        for model, t_list in times.items():
+            avg_t = sum(t_list) / len(t_list) if t_list else 0
+            print(f"{model:<15} : {avg_t:.2f}s")
+        print(colored("="*50 + "\n", "cyan"))
+
     def save_summary(self, final_scores, filepath="eval_summary.json"):
         with open(filepath, 'w') as f:
             json.dump(final_scores, f, indent=4)
@@ -100,6 +147,11 @@ if __name__ == "__main__":
     evaluator = RAGEvaluator()
     # Note: This requires arena_results.json to be fully populated
     if os.path.exists("arena_results.json"):
+        # Run report (fast) first or after evaluation
+        print("Generating Performance Report...")
+        evaluator.generate_report()
+        
+        print("\nRunning Detailed Evaluation (Gradiing)...")
         scores = evaluator.evaluate_arena()
         evaluator.save_summary(scores)
     else:

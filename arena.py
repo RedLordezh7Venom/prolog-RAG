@@ -62,11 +62,13 @@ class RACArena:
                 "id": q_id,
                 "question": q_text,
                 "type": q['type'],
+                "difficulty": q.get('difficulty', 'unknown'),
                 "answers": {}
             }
             
             for model_name, model in models_to_run.items():
                 start_time = time.time()
+                has_proof = False
                 try:
                     # Execute query
                     if model_name == "Prolog-RAG":
@@ -74,6 +76,7 @@ class RACArena:
                         res = model.query(q_text)
                         answer = res.get('answer', str(res))
                         method = res.get('route', 'UNKNOWN')
+                        has_proof = bool(res.get('proof_trace'))
                     else:
                         # Baselines return standard dict
                         res = model.query(q_text)
@@ -91,6 +94,7 @@ class RACArena:
                     "answer": answer,
                     "method": method,
                     "time_sec": round(exec_time, 2),
+                    "has_proof": has_proof,
                     "context": res.get("source_docs", []) if isinstance(res, dict) else []
                 }
                 
