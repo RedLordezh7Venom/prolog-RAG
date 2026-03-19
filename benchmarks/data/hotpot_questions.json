@@ -1,0 +1,227 @@
+[
+  {
+    "id": 1,
+    "question": "What was the total net income for BKNG and BLL in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BKNG/2008",
+      "BLL/2008"
+    ]
+  },
+  {
+    "id": 2,
+    "question": "What was the total net income for AWK and AAL in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AWK/2009",
+      "AAL/2009"
+    ]
+  },
+  {
+    "id": 3,
+    "question": "What was the total net income for ABMD and AWK in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "ABMD/2006",
+      "AWK/2006"
+    ]
+  },
+  {
+    "id": 4,
+    "question": "What was the total net income for APTV and AWK in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "APTV/2008",
+      "AWK/2008"
+    ]
+  },
+  {
+    "id": 5,
+    "question": "What was the total net income for BLL and AWK in 2007?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BLL/2007",
+      "AWK/2007"
+    ]
+  },
+  {
+    "id": 6,
+    "question": "What was the total net income for APTV and ABMD in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "APTV/2006",
+      "ABMD/2006"
+    ]
+  },
+  {
+    "id": 7,
+    "question": "What was the total net income for APTV and AAL in 2007?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "APTV/2007",
+      "AAL/2007"
+    ]
+  },
+  {
+    "id": 8,
+    "question": "What was the total net income for BKNG and ABMD in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BKNG/2008",
+      "ABMD/2008"
+    ]
+  },
+  {
+    "id": 9,
+    "question": "What was the total net income for ABMD and AAPL in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "ABMD/2008",
+      "AAPL/2008"
+    ]
+  },
+  {
+    "id": 10,
+    "question": "What was the total net income for AAP and ABMD in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAP/2006",
+      "ABMD/2006"
+    ]
+  },
+  {
+    "id": 11,
+    "question": "What was the total net income for APTV and AAL in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "APTV/2009",
+      "AAL/2009"
+    ]
+  },
+  {
+    "id": 12,
+    "question": "What was the total net income for AWK and APTV in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AWK/2008",
+      "APTV/2008"
+    ]
+  },
+  {
+    "id": 13,
+    "question": "What was the total net income for AAL and AAPL in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAL/2009",
+      "AAPL/2009"
+    ]
+  },
+  {
+    "id": 14,
+    "question": "What was the total net income for AWK and BKNG in 2007?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AWK/2007",
+      "BKNG/2007"
+    ]
+  },
+  {
+    "id": 15,
+    "question": "What was the total net income for BKNG and AAP in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BKNG/2006",
+      "AAP/2006"
+    ]
+  },
+  {
+    "id": 16,
+    "question": "What was the total net income for AWK and ABMD in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AWK/2009",
+      "ABMD/2009"
+    ]
+  },
+  {
+    "id": 17,
+    "question": "What was the total net income for AAPL and AAP in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAPL/2009",
+      "AAP/2009"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "What was the total net income for AAL and BKNG in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAL/2009",
+      "BKNG/2009"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "What was the total net income for AAP and AAPL in 2007?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAP/2007",
+      "AAPL/2007"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "What was the total net income for AAL and AWK in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAL/2008",
+      "AWK/2008"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "What was the total net income for AAPL and APTV in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAPL/2006",
+      "APTV/2006"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "What was the total net income for BLL and AAL in 2007?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BLL/2007",
+      "AAL/2007"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "What was the total net income for AAPL and BKNG in 2009?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAPL/2009",
+      "BKNG/2009"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "What was the total net income for AAPL and BLL in 2008?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "AAPL/2008",
+      "BLL/2008"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "What was the total net income for BKNG and AWK in 2006?",
+    "type": "multi-hop-resoning",
+    "required_docs": [
+      "BKNG/2006",
+      "AWK/2006"
+    ]
+  }
+]

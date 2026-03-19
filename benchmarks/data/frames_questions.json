@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "question": "By what percentage did ABMD's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 2,
+    "question": "By what percentage did BLL's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 3,
+    "question": "By what percentage did ABMD's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 4,
+    "question": "By what percentage did AWK's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 5,
+    "question": "By what percentage did APTV's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 6,
+    "question": "By what percentage did AAP's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 7,
+    "question": "By what percentage did AWK's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 8,
+    "question": "By what percentage did AWK's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 9,
+    "question": "By what percentage did AAPL's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 10,
+    "question": "By what percentage did BLL's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 11,
+    "question": "By what percentage did BKNG's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 12,
+    "question": "By what percentage did ABMD's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 13,
+    "question": "By what percentage did AAL's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 14,
+    "question": "By what percentage did ABMD's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 15,
+    "question": "By what percentage did ABMD's revenue grow between 2008 and 2013?",
+    "type": "numerical-calculation"
+  },
+  {
+    "id": 16,
+    "question": "Which company had a higher profit margin in 2007, BKNG or BLL?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 17,
+    "question": "Which company had a higher profit margin in 2007, AWK or AAPL?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 18,
+    "question": "Which company had a higher profit margin in 2007, APTV or AAP?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 19,
+    "question": "Which company had a higher profit margin in 2007, BKNG or AWK?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 20,
+    "question": "Which company had a higher profit margin in 2007, APTV or ABMD?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 21,
+    "question": "Which company had a higher profit margin in 2007, AWK or BKNG?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 22,
+    "question": "Which company had a higher profit margin in 2007, AAPL or BKNG?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 23,
+    "question": "Which company had a higher profit margin in 2007, APTV or BKNG?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 24,
+    "question": "Which company had a higher profit margin in 2007, BKNG or AWK?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 25,
+    "question": "Which company had a higher profit margin in 2007, BKNG or APTV?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 26,
+    "question": "Which company had a higher profit margin in 2007, AWK or ABMD?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 27,
+    "question": "Which company had a higher profit margin in 2007, AWK or BKNG?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 28,
+    "question": "Which company had a higher profit margin in 2007, BLL or AWK?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 29,
+    "question": "Which company had a higher profit margin in 2007, APTV or BLL?",
+    "type": "numerical-comparison"
+  },
+  {
+    "id": 30,
+    "question": "Which company had a higher profit margin in 2007, AAPL or BLL?",
+    "type": "numerical-comparison"
+  }
+]

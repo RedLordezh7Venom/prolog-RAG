@@ -443,6 +443,21 @@ Prolog-RAG: ⚠️ Unnecessary overhead
 
 # EVALUATION FRAMEWORK
 
+### Industry-Standard Benchmarks (Implemented)
+
+| Benchmark | Focus | Target | Status |
+| :--- | :--- | :--- | :--- |
+| **HotpotQA (Fin)** | Multi-hop reasoning | 25 questions | ✅ Implemented |
+| **FRAMES Numerical** | Complex calculations | 30 questions | ✅ Implemented |
+| **NIAH** | Retrieval robustness | 40 configs | ✅ Implemented |
+| **BEIR** | Retrieval quality | NDCG/Recall | ✅ Implemented |
+| **Custom FinQA** | Domain-specific | 10 questions | ✅ Implemented |
+
+### Evaluation Process
+1.  **Automated NIAH**: Tests across 8 context lengths and 5 depths to ensure "lost-in-the-middle" issues are avoided.
+2.  **Symbolic Grading**: Automated logic check for calculations (Profit Margin, Growth).
+3.  **LLM-as-a-Judge**: Accuracy assessment and hallucination check using `llama-3.1-8b-instant`.
+
 ## Test Suite Specification
 
 **Total Questions:** 10  
