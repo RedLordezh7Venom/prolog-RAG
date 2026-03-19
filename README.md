@@ -25,6 +25,22 @@
 
 ---
 
+## 📖 Table of Contents
+*   [🛑 The Problem with Traditional RAG](#-the-problem-with-traditional-rag)
+*   [🚀 The Solution: Prolog-RAG](#-the-solution-prolog-rag)
+*   [🏗️ System Architecture](#-system-architecture)
+*   [🔍 Example: The "Audit Proof" Difference](#-example-the-audit-proof-difference)
+*   [📊 Benchmark Results](#-benchmark-results)
+*   [🛠️ How It Works](#-how-it-works)
+*   [🏗️ Project Structure](#-project-structure)
+*   [💻 Tech Stack](#-tech-stack)
+*   [🛠️ Installation & Setup](#-installation--setup)
+*   [📜 Explainability Trace Example](#-explainability-trace-example)
+*   [🤝 Contributing](#-contributing)
+*   [📄 License](#-license)
+
+---
+
 ## 🛑 The Problem with Traditional RAG
 
 Standard Vector-based RAG architectures consistently fail in the financial domain because:
