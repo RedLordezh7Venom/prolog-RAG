@@ -118,4 +118,7 @@ def visualize_results(results_file="arena_results.json", output_dir="assets"):
     print(f"Successfully saved charts to {output_dir}/")
 
 if __name__ == "__main__":
+    # Test Block
+    print("Running visualizations for RAG Arena...")
     visualize_results()
+    print("Saved comparison_proof.png and comparison_time.png")
