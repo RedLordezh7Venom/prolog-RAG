@@ -97,22 +97,6 @@ Prolog-RAG uses a hybrid routing mechanism to ensure high precision for structur
 > ❌ **None.** Source of the "19%" figure is opaque and subject to LLM rounding/estimation.
 
 ---
-
-## ⚡ Quick Start
-
-Get your Prolog-RAG environment running in minutes:
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/RedLordezh7Venom/prolog-RAG.git && cd prolog-RAG
-
-# 2. Install dependencies (requires SWI-Prolog 9.x+)
-uv pip install -e .
-
-# 3. Run the interactive demo
-uv run python demo_app.py
-```
-
 ---
 
 ## 📊 Benchmark Results
@@ -128,7 +112,20 @@ Evaluated on our **Grounded Financial QA Suite** (10 high-stakes financial reaso
 
 ---
 
-## 🗺️ Project Architecture
+---
+
+## 🛠️ How It Works
+
+1.  **Query Input**: The user provides a natural language financial query.
+2.  **Hybrid Routing**: An LLM analyzes the query to determine if it is **Semantic** (FAQ/Summary) or **Arithmetic/Logical** (Calculations/Multi-hop).
+3.  **Fact Extraction**: For logical queries, the system retrieves relevant document chunks and extracts structured financial facts (e.g., `revenue(co, 2023, 500)`).
+4.  **Symbolic Unification**: The facts are asserted into a **SWI-Prolog** knowledge base alongside domain-specific financial reasoning rules.
+5.  **Logic Execution**: The Prolog engine executes a symbolic query to derive the exact numerical answer or logical conclusion.
+6.  **Answer Synthesis**: The system generates a natural language answer, appending a **Proof Trace** for full transparency and explainability.
+
+---
+
+## 🏗️ Project Structure
 
 ```text
 prolog-rag/
@@ -138,8 +135,51 @@ prolog-rag/
 │   └── utils/          # Auto-Evaluator, Reporting, & Visualization tools
 ├── benchmarks/         # Data generators for NIAH, HotpotQA, and FRAMES
 ├── docs/               # Comparative analysis and PRD documentation
-└── assets/             # Performance charts and visualizations
+├── assets/             # Performance charts and visualizations
+├── demo_app.py         # Streamlit Interactive Demo
+└── arena.py            # Unified benchmarking arena
 ```
+
+---
+
+## 💻 Tech Stack
+
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Language** | Python 3.11+ | Orchestration & Pipeline |
+| **Logic Engine** | SWI-Prolog 9.x | Symbolic Reasoning & Arithmetic |
+| **LLM (Backbone)** | Llama 3.1 (via Groq) | Fact Extraction & Query Routing |
+| **Vector Database**| ChromaDB | Semantic Retrieval & Context Management |
+| **Embeddings** | Sentence-Transformers | Vectorizing Financial Documents |
+| **Visualization** | Matplotlib | Performance & Benchmark Charting |
+
+---
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+*   Python 3.11 or higher.
+*   [SWI-Prolog](https://www.swi-prolog.org/download/stable) installed and added to your system PATH.
+*   A **Groq API Key** (Set in `.env`).
+
+### Step-by-Step
+1.  **Clone the Repo**:
+    ```bash
+    git clone https://github.com/RedLordezh7Venom/prolog-RAG.git && cd prolog-RAG
+    ```
+2.  **Install Dependencies**:
+    ```bash
+    uv pip install -e .
+    ```
+3.  **Environment Setup**:
+    Create a `.env` file in the root and add your Groq API key:
+    ```env
+    GROQ_API_KEY=your_key_here
+    ```
+4.  **Run the Benchmark**:
+    ```bash
+    uv run python arena.py
+    ```
 
 ## 📜 Explainability Trace Example
 
