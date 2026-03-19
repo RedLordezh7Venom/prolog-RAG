@@ -69,6 +69,24 @@ def visualize_results(results_file="arena_results.json", output_dir="assets"):
         plt.text(bar.get_x() + bar.get_width()/2, yval + 0.1, int(yval), ha='center', va='bottom', fontsize=12)
 
     plt.savefig(os.path.join(output_dir, "comparison_proof.png"), dpi=300, bbox_inches='tight')
+    plt.close() # Close current figure to start fresh
+
+    # --- PLOT 2: Average Query Latency ---
+    plt.figure(figsize=(10, 6))
+    time_colors = ['#3498db', '#e74c3c', '#f1c40f'] # Blue, Red, Yellow
+    bars = plt.bar(systems, [avg_times_ms[s] for s in systems], color=time_colors)
+    
+    plt.title("Average Query Latency (ms) across RAG Systems", fontweight='bold', fontsize=14)
+    plt.ylabel("Time in Milliseconds", fontsize=12)
+    
+    # Annotate bar values
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 50, f"{int(yval)}ms", ha='center', va='bottom', fontsize=12)
+
+    plt.savefig(os.path.join(output_dir, "comparison_time.png"), dpi=300, bbox_inches='tight')
+    plt.close()
+
     print(f"Successfully saved charts to {output_dir}/")
 
 if __name__ == "__main__":
